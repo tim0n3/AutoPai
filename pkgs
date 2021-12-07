@@ -1,0 +1,16 @@
+vim
+openjdk-8-jdk
+libqmi-utils
+udhcpc
+ntp
+htop
+ufw
+screen
+curl
+wget
+p7zip
+neofetch
+conntrack
+mtr
+aptitude
+ddclient
