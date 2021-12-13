@@ -5,6 +5,7 @@
 
 * text eol=LF
 * text eol=LF
+*.sh        text eol=lf
 
 ###############################################################################
 # Set default behavior for command prompt diff.
