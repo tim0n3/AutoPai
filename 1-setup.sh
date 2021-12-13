@@ -1,15 +1,15 @@
 #!/bin/bash
 # This script has sudo for all required sudo actions
-echo "--------------------------------------" ;
-echo "--   Configuring Pi Firewall        --" ;
-echo "--------------------------------------" ;
-sudo bash ./ufw.sh ;
-echo -e 'creating virtual device map for usb to serial converters \n' ;
-echo -e 'SUBSYSTEM=="tty", ATTRS{idVendor}=="1a86", ATTRS{idProduct}=="7523", SYMLINK+="ttyUSB.EDS"\n' | sudo tee -a /etc/udev/rules.d/99-com.rules ;
-echo -e 'SUBSYSTEM=="tty", ATTRS{idProduct}=="2303", ATTRS{idVendor}=="067b", SYMLINK+="ttyUSB.EDS"\n' | sudo tee -a /etc/udev/rules.d/99-com.rules ;
-echo -e 'SUBSYSTEM=="tty", ATTRS{idProduct}=="6001", ATTRS{idVendor}=="0403", SYMLINK+="ttyUSB.EDS"\n' | sudo tee -a /etc/udev/rules.d/99-com.rules ;
-sudo udevadm trigger ;
-echo -e "Configuring network settings:\n" ;
+echo "--------------------------------------"
+echo "--   Configuring Pi Firewall        --"
+echo "--------------------------------------"
+sudo bash ./ufw.sh
+echo -e 'creating virtual device map for usb to serial converters \n'
+echo -e 'SUBSYSTEM=="tty", ATTRS{idVendor}=="1a86", ATTRS{idProduct}=="7523", SYMLINK+="ttyUSB.EDS"\n' | sudo tee -a /etc/udev/rules.d/99-com.rules
+echo -e 'SUBSYSTEM=="tty", ATTRS{idProduct}=="2303", ATTRS{idVendor}=="067b", SYMLINK+="ttyUSB.EDS"\n' | sudo tee -a /etc/udev/rules.d/99-com.rules
+echo -e 'SUBSYSTEM=="tty", ATTRS{idProduct}=="6001", ATTRS{idVendor}=="0403", SYMLINK+="ttyUSB.EDS"\n' | sudo tee -a /etc/udev/rules.d/99-com.rules
+sudo udevadm trigger
+echo -e "Configuring network settings:\n"
 echo "
 # define static profile
 profile mik_ip
@@ -27,16 +27,16 @@ static ip_address=192.168.0.200/24
 interface eth0
 fallback mik_ip
 fallback no_mik
-"| sudo tee -a /etc/dhcpcd.conf ;
-echo "--------------------------------------" ;
-echo "--   SystemV service install        --" ;
-echo "--------------------------------------" ;
-sudo cp ~/app/energydrive.service /etc/systemd/system/energydrive.service ;
-sudo cp ~/app/watchdog.service /etc/systemd/system/watchdog.service ;
-sudo systemctl enable energydrive.service ;
-sudo systemctl stop energydrive.service ;
-sudo systemctl enable watchdog.service ;
-sudo systemctl stop watchdog.service ;
-echo "--------------------------------------" ;
-echo "--   SYSTEM READY FOR 2-user        --" ;
-echo "--------------------------------------" ;
+"| sudo tee -a /etc/dhcpcd.conf
+echo "--------------------------------------"
+echo "--   SystemV service install        --"
+echo "--------------------------------------"
+sudo cp ~/app/energydrive.service /etc/systemd/system/energydrive.service
+sudo cp ~/app/watchdog.service /etc/systemd/system/watchdog.service
+sudo systemctl enable energydrive.service
+sudo systemctl stop energydrive.service
+sudo systemctl enable watchdog.service
+sudo systemctl stop watchdog.service
+echo "--------------------------------------"
+echo "--   SYSTEM READY FOR 2-user        --"
+echo "--------------------------------------"
