@@ -28,6 +28,7 @@ interface eth0
 fallback mik_ip
 fallback no_mik
 "| sudo tee -a /etc/dhcpcd.conf
+#### Add some logic to query if you're using an LTE dish (MikroTik) or an LTE hat (waveshare) and then apply the appropriate config
 echo "--------------------------------------"
 echo "--   SystemV service install        --"
 echo "--------------------------------------"
