@@ -10,24 +10,25 @@ echo -e 'SUBSYSTEM=="tty", ATTRS{idProduct}=="2303", ATTRS{idVendor}=="067b", SY
 echo -e 'SUBSYSTEM=="tty", ATTRS{idProduct}=="6001", ATTRS{idVendor}=="0403", SYMLINK+="ttyUSB.EDS"\n' | sudo tee -a /etc/udev/rules.d/99-com.rules
 sudo udevadm trigger
 echo -e "Configuring network settings:\n"
-echo "
-# define static profile
-profile mik_ip
-# MikroTik eth0 configuration
-static ip_address=192.168.88.200/24
-static routers=192.168.88.1
-static domain_name_servers=192.168.88.1
-static domain_name_servers=8.8.8.8
-
-profile no_mik
-# Modbus/TCP eth0 configuration
-static ip_address=192.168.0.200/24
-
-# fallback to static profile on eth0
-interface eth0
-fallback mik_ip
-fallback no_mik
-"| sudo tee -a /etc/dhcpcd.conf
+read -p "Are you using a MikroTik LTE device (y/n):" networksettings
+	if [[  $networksettings -eq y ]]; then
+	echo "Configuring MikroTik static network client on iface eth0"
+	echo "
+		# define static profile
+		interface eth0
+		# MikroTik eth0 configuration
+		static ip_address=192.168.88.200/24
+		static routers=192.168.88.1
+		static domain_name_servers=192.168.88.1
+		static domain_name_servers=8.8.8.8
+		" | sudo tee -a /etc/dhcpcd.conf
+	elif [[  $networksettings -eq n ]]; then
+	echo "configuring eth0 iface for Modbus TCP with ip 192.168.0.200"
+	echo "
+		interface eth0
+		static ip_address=192.168.0.200/24
+		" | sudo tee -a /etc/dhcpcd.conf
+	fi
 #### Add some logic to query if you're using an LTE dish (MikroTik) or an LTE hat (waveshare) and then apply the appropriate config
 echo "--------------------------------------"
 echo "--   SystemV service install        --"
