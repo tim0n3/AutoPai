@@ -32,8 +32,8 @@ fallback no_mik
 echo "--------------------------------------"
 echo "--   SystemV service install        --"
 echo "--------------------------------------"
-sudo cp ~/app/energydrive.service /etc/systemd/system/energydrive.service
-sudo cp ~/app/watchdog.service /etc/systemd/system/watchdog.service
+sudo cp /home/pi/app/energydrive.service /etc/systemd/system/energydrive.service
+sudo cp /home/pi/app/watchdog.service /etc/systemd/system/watchdog.service
 sudo systemctl enable energydrive.service
 sudo systemctl stop energydrive.service
 sudo systemctl enable watchdog.service
