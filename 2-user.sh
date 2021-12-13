@@ -2,7 +2,6 @@
 echo -e "Change user: pi password\n"
 passwd
 echo -e "Set timezone:\n"
-#sudo raspi-config ## deprecated in favour of using timedatectl directly as this is a lite-touch script
 sudo timedatectl set-ntp true 
 sudo timedatectl set-timezone Africa/Johannesburg 
 sudo timedatectl
