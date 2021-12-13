@@ -10,7 +10,7 @@ The project's scripts contain the steps I perform to install and configure a ful
 Run the script and follow the assistant:
 
 ```
-git clone https://github.com/tim0n3/OpenVPN.git ;\
+git clone https://github.com/tim0n3/AutoPai.git ;\
 cd AutoPai ;\
 chmod +x *.sh ;\
 bash AutoPi.sh
