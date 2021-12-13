@@ -39,4 +39,4 @@ iptables -t mangle -nvL --line-numbers
 echo "--------------------------------------"
 echo "--           UFW RULES              --"
 echo "--------------------------------------"
-ufw status verbose
+ufw status verbose && wait 5
