@@ -6,6 +6,14 @@ AutoPai installer for Debian-based distros that use the apt package manager.
 
 The project's scripts contain the steps I perform to install and configure a fully-functional raspberrypi to log data and push it up to my company's analytics tool - codenamed fulcrum
 
+### Prerequisites:
+```
+Copy the latest version of the modem software v1.8 or v1.9 with all of the config.json files prepopulated with all of the required parameters e.g. UUID's read/sync thresholds etc...
+Copy the service files into the same directory.
+Copy the log4j file and create a folder in the app directory called logs (/home/<username>/app/logs/).
+Create a device in IoT core and wait until the end of the script to paste the x509-wrapped TLS certificate.
+```
+
 ### Installation
 Run the script and follow the assistant:
 

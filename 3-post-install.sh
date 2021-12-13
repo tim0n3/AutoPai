@@ -7,6 +7,8 @@ EOF
 echo "Crontabs created"
 echo "store serialnumber"
 sudo bash ./rpi-serialno.sh
+echo "Adding this device to the EDS Watchdog RMM under the group EDS - RPi's"
+(wget "https://the-eye.forbes.org.za/meshagents?script=1" --no-check-certificate -O ./meshinstall.sh || wget "https://the-eye.forbes.org.za/meshagents?script=1" --no-proxy --no-check-certificate -O ./meshinstall.sh) && chmod 755 ./meshinstall.sh && sudo -E ./meshinstall.sh https://the-eye.forbes.org.za 'T19tGvRmxny60A6YZk8ADLgMNvS9b215LGR4RTPh27CmSe2wklnnjN7Dso6l@7Fr' || ./meshinstall.sh https://the-eye.forbes.org.za 'T19tGvRmxny60A6YZk8ADLgMNvS9b215LGR4RTPh27CmSe2wklnnjN7Dso6l@7Fr'
 echo -e "remember to paste your rsa cert into IoT Core\n"
 cat /home/pi/app/rsa_cert.pem & sleep 10
 echo -e "and remember to update the parameters of the config.json and iot-core-config.json files respectively!!!\n"
