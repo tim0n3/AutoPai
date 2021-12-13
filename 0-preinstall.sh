@@ -45,8 +45,6 @@ sudo apt-cache --generate pkgnames \
   -e mtr \
   -e aptitude \
 | xargs sudo apt install -y
-# -e ddclient \ ## uncomment this if you want to setup ddclient for non-mik-setups and move this above the last pipe
-# -e ntp \ ## this is not required on RPI's as timedatectl keeps time syncronised and having ntp causes unsyncronization 
 read -p "Please name your machine:" nameofmachine
 	echo $nameofmachine > /etc/hostname
 	echo 127.0.1.1		$nameofmachine >> /etc/hosts
