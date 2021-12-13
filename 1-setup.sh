@@ -28,8 +28,7 @@ read -p "Are you using a MikroTik LTE device (y/n):" networksettings
 		interface eth0
 		static ip_address=192.168.0.200/24
 		" | sudo tee -a /etc/dhcpcd.conf
-	fi
-#### Add some logic to query if you're using an LTE dish (MikroTik) or an LTE hat (waveshare) and then apply the appropriate config
+	fi	
 echo "--------------------------------------"
 echo "--   SystemV service install        --"
 echo "--------------------------------------"

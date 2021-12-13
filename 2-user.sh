@@ -2,7 +2,10 @@
 echo -e "Change user: pi password\n"
 passwd
 echo -e "Set timezone:\n"
-sudo raspi-config
+#sudo raspi-config ## deprecated in favour of using timedatectl directly as this is a lite-touch script
+sudo timedatectl set-ntp true 
+sudo timedatectl set-timezone Africa/Johannesburg 
+sudo timedatectl
 echo "Generate the TLS certs and then convert them to IoT compatible version:"
 cd /home/pi/app/
 openssl req -x509 -newkey rsa:2048 -keyout rsa_private.pem -nodes -out rsa_cert.pem -subj /CN=unused 
