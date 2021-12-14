@@ -11,24 +11,25 @@ echo -e 'SUBSYSTEM=="tty", ATTRS{idProduct}=="6001", ATTRS{idVendor}=="0403", SY
 sudo udevadm trigger
 echo -e "Configuring network settings:\n"
 read -p "Are you using a MikroTik LTE device (y/n):" networksettings
-	if [[  $networksettings -eq y ]]; then
-	echo "Configuring MikroTik static network client on iface eth0"
-	echo "
-		# define static profile
-		interface eth0
-		# MikroTik eth0 configuration
-		static ip_address=192.168.88.200/24
-		static routers=192.168.88.1
-		static domain_name_servers=192.168.88.1
-		static domain_name_servers=8.8.8.8
-		" | sudo tee -a /etc/dhcpcd.conf
-	elif [[  $networksettings -eq n ]]; then
-	echo "configuring eth0 iface for Modbus TCP with ip 192.168.0.200"
-	echo "
-		interface eth0
-		static ip_address=192.168.0.200/24
-		" | sudo tee -a /etc/dhcpcd.conf
-	fi	
+if [[  $networksettings -eq y ]]; 
+	then
+		echo "Configuring MikroTik static network client on iface eth0"
+		echo "
+			# define static profile
+			interface eth0
+			# MikroTik eth0 configuration
+			static ip_address=192.168.88.200/24
+			static routers=192.168.88.1
+			static domain_name_servers=192.168.88.1
+			static domain_name_servers=8.8.8.8
+			" | sudo tee -a /etc/dhcpcd.conf
+	else
+		echo "configuring eth0 iface for Modbus TCP with ip 192.168.0.200"
+		echo "
+			interface eth0
+			static ip_address=192.168.0.200/24
+			" | sudo tee -a /etc/dhcpcd.conf
+fi	
 echo "--------------------------------------"
 echo "--   SystemV service install        --"
 echo "--------------------------------------"

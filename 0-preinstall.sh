@@ -28,6 +28,24 @@ sudo apt update -y
 sudo apt upgrade -y
 sudo apt full-upgrade -y
 echo -e "\nInstalling Modem Software\n"
+echo "
+  Installing -> vim
+  Installing -> openjdk-8-jdk
+  Installing -> libqmi-utils
+  Installing -> udhcpc
+  Installing -> htop
+  Installing -> ufw
+  Installing -> screen
+  Installing -> curl
+  Installing -> wget
+  Installing -> p7zip
+  Installing -> neofetch
+  Installing -> conntrack
+  Installing -> mtr
+  Installing -> aptitude
+  Installing -> netfilter-persistant
+  Installing -> iptables-persistant
+"
 sudo apt-cache --generate pkgnames \
 | grep --line-regexp --fixed-strings \
   -e vim \
@@ -44,6 +62,8 @@ sudo apt-cache --generate pkgnames \
   -e conntrack \
   -e mtr \
   -e aptitude \
+  -e iptables-persistent \
+  -e netfilter-persistent \
 | xargs sudo apt install -y
 read -p "Please name your machine:" nameofmachine
 	echo $nameofmachine > /etc/hostname
