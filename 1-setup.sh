@@ -11,7 +11,7 @@ echo -e 'SUBSYSTEM=="tty", ATTRS{idProduct}=="6001", ATTRS{idVendor}=="0403", SY
 sudo udevadm trigger
 echo -e "Configuring network settings:\n"
 read -p "Are you using a MikroTik LTE device (y/n):" networksettings
-if [[  $networksettings -eq y ]]; 
+if [[ $networksettings -eq "y" ]]; 
 	then
 		echo "Configuring MikroTik static network client on iface eth0"
 		echo "
