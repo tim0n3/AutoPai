@@ -39,4 +39,5 @@ iptables -t mangle -nvL --line-numbers
 echo "--------------------------------------"
 echo "--           UFW RULES              --"
 echo "--------------------------------------"
+netfilter-persistent save && netfilter-persistent reload
 ufw status verbose && sleep 5
