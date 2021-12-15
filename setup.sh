@@ -3,7 +3,7 @@ echo "Installing git to clone the AutoPai repo"
 sudo apt install git -y
 echo "Check if using Pi or moxa:"
 read -p "Is this a Pi or a Moxa? (y/n) :" ispi
-if [[ $ispi -eq y ]];
+if [[ $ispi -eq "y" ]];
 	then
 		echo " Device is Raspberry Pi "
 		echo " Using Pi-scripts "
