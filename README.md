@@ -17,7 +17,7 @@ Create a device in IoT core and wait until the end of the script to paste the x5
 ### Single-line-Installation
 Run the command and follow the assistant:
 ```
-wget https://raw.githubusercontent.com/tim0n3/AutoPai/master/setup.sh | bash
+curl -sSL https://raw.githubusercontent.com/tim0n3/AutoPai/master/setup.sh | bash
 ```
 ## OR 
 ### Manually clone and run the setup file directly
