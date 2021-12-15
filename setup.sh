@@ -14,5 +14,8 @@ if [[ $ispi -eq y ]];
 else
 	echo " Device is Moxa "
 	echo "Using Moxa-scripts "
+	git clone https://github.com/tim0n3/AutoPai.git ;\
+	cd AutoPai ;\
+	chmod +x *.sh ;\
 	bash AutoMoxa.sh
 fi
