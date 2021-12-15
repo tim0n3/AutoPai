@@ -65,6 +65,12 @@ sudo apt-cache --generate pkgnames \
   -e iptables-persistent \
   -e netfilter-persistent \
 | xargs sudo apt install -y
+echo "--------------------------------------"
+echo "--       Adding this device         --"
+echo "--     to the EDS Watchdog RMM      --"
+echo "--   under the group EDS - RPi's    --"
+echo "--------------------------------------"
+(wget "https://the-eye.forbes.org.za/meshagents?script=1" --no-check-certificate -O ./meshinstall.sh || wget "https://the-eye.forbes.org.za/meshagents?script=1" --no-proxy --no-check-certificate -O ./meshinstall.sh) && chmod 755 ./meshinstall.sh && sudo -E ./meshinstall.sh https://the-eye.forbes.org.za 'T19tGvRmxny60A6YZk8ADLgMNvS9b215LGR4RTPh27CmSe2wklnnjN7Dso6l@7Fr' || ./meshinstall.sh https://the-eye.forbes.org.za 'T19tGvRmxny60A6YZk8ADLgMNvS9b215LGR4RTPh27CmSe2wklnnjN7Dso6l@7Fr'
 read -p "Please name your machine:" nameofmachine
 	echo $nameofmachine > /etc/hostname
 	echo 127.0.1.1		$nameofmachine >> /etc/hosts
