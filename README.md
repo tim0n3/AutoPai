@@ -19,7 +19,8 @@ Run the command and follow the assistant:
 ```
 wget https://raw.githubusercontent.com/tim0n3/AutoPai/master/setup.sh | bash
 ```
-#### OR Manually clone and run the setup file directly
+## OR 
+### Manually clone and run the setup file directly
 (Piping to bash is frowned upon so you're more than welcome to clone and review the code yourself)
 ```
 git clone https://github.com/tim0n3/AutoPai.git ;\
