@@ -11,7 +11,6 @@ git clone https://github.com/tim0n3/AutoPai.git ;\
 cd AutoPai ;\
 chmod +x *.sh ;\
 bash AutoPi.sh
-
 elif [[ $ispi -eq n ]];
 then
 echo " Device is Moxa "
