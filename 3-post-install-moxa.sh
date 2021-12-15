@@ -4,7 +4,7 @@ echo "--        Creating crontabs:        --"
 echo "--------------------------------------"
 cat <<EOF | crontab -
 @daily  /sbin/shutdown -r +5
-@hourly /bin/bash /home/pi/AutoPai/check-internet.sh
+@hourly /bin/bash /home/moxa/AutoPai/check-internet.sh
 EOF
 echo "--------------------------------------"
 echo "--        Crontabs created          --"
@@ -12,11 +12,10 @@ echo "--------------------------------------"
 echo "--------------------------------------"
 echo "--       Store serialnumber         --"
 echo "--------------------------------------"
-sudo bash ./rpi-serialno.sh
 echo "--------------------------------------"
 echo "-- Paste the RSA cert into IoT Core --"
 echo "--------------------------------------"
-cat /home/pi/app/rsa_cert.pem & sleep 10
+cat /home/moxa/app/rsa_cert.pem & sleep 10
 echo -e "and remember to update the parameters of the config.json and iot-core-config.json files respectively!!!\n"
 echo -e "\nDone!\n"
 echo "
@@ -49,5 +48,5 @@ echo "going down in 2..." && sleep 1
 echo "bye bye" && sleep 1
 sudo reboot now
 else
-echo "Script Pi version is complete."
+echo "Script moxa version is complete."
 fi
