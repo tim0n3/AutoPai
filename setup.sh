@@ -1,11 +1,11 @@
 #!/bin/bash
 
-function _dependancy_install() {
+_dependancy_install() {
 	echo "Installing git to clone the AutoPai repo"
 	sudo apt install git -y
 }
 
-function _is_pi() {
+_is_pi() {
 	git clone https://github.com/tim0n3/AutoPai.git ;
 	cd AutoPai ;
 	chmod +x *.sh ;
@@ -13,7 +13,7 @@ function _is_pi() {
 	bash AutoPi.sh
 }
 
-function _is_moxa() {
+_is_moxa() {
 	git clone https://github.com/tim0n3/AutoPai.git ;
 	cd AutoPai ;
 	chmod +x *.sh ;
@@ -21,7 +21,7 @@ function _is_moxa() {
 	bash AutoMoxa.sh
 }
 
-function _start() {
+_start() {
 	echo "Check if using Pi or moxa:"
 	read -n1 -p "Is this a Pi or a Moxa? (y=Pi/n=moxa) (y/n) :" ispi
 	case ${ispi:0:1} in
@@ -31,8 +31,8 @@ function _start() {
 			_is_pi
 		;;
 		n|N )
-			echo " Device is Moxa "
-			echo "Using Moxa-scripts "
+			echo " \n Device is Moxa \n"
+			echo "Using Moxa-scripts \n"
 			_is_moxa
 		;;
 		* )
