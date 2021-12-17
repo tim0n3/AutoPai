@@ -21,7 +21,8 @@ sudo udevadm trigger
 _is_mik() {
 	echo -e "Configuring network settings:\n"
 	read -n1 -p "Are you using a MikroTik LTE device (y/n):" networksettings
-	if [[ $networksettings -eq "y" || $networksettings -eq "Y" ]]; then
+	case ${networksettings:0:1} in
+	y|Y )
 		echo "Configuring MikroTik static network client on iface eth0"
 		sudo bash
 		cat <<EOF >> /etc/dhcpcd.conf
@@ -33,7 +34,8 @@ _is_mik() {
 			static domain_name_servers=192.168.88.1\n
 			static domain_name_servers=8.8.8.8\n
 EOF
-	else
+		;;
+		n|N )
 		echo "configuring eth0 iface for Modbus TCP with ip 192.168.0.200\n"
 		sudo bash
 		cat <<EOF >> /etc/dhcpcd.conf
@@ -41,7 +43,11 @@ EOF
 			interface eth0
 			static ip_address=192.168.0.200/24
 EOF
-	fi
+		;;
+		* )
+			echo Answer Y | y || N | n only
+    	;;
+	esac
 }
 
 _modem_service_install() {
