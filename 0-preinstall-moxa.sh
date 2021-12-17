@@ -1,6 +1,6 @@
 #!/bin/bash
 # This script must be run with sudo
-echo -e "Running 0-preinstall.sh as sudo\n"
+echo -e "Running 0-preinstall-moxa.sh as sudo\n"
 echo "--------------------------------------"
 echo "-- Creating RPI swap partition  =1G --"
 echo "--------------------------------------"
