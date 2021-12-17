@@ -9,6 +9,7 @@ function _is_pi() {
 	git clone https://github.com/tim0n3/AutoPai.git ;
 	cd AutoPai ;
 	chmod +x *.sh ;
+	echo "running AutoPi.sh and linked scripts"
 	bash AutoPi.sh
 }
 
@@ -16,6 +17,7 @@ function _is_moxa() {
 	git clone https://github.com/tim0n3/AutoPai.git ;
 	cd AutoPai ;
 	chmod +x *.sh ;
+	echo "running AutoMoxa.sh and linked scripts"
 	bash AutoMoxa.sh
 }
 
