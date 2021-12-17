@@ -1,6 +1,6 @@
 #!/bin/bash
 # This script must be run with sudo
-function _swap_file() {
+_swap_file() {
 	echo -e "Running 0-preinstall.sh as sudo\n"
 	echo "--------------------------------------"
 	echo "-- Creating RPI swap partition  =1G --"
@@ -26,14 +26,14 @@ function _swap_file() {
 	echo 'vm.vfs_cache_pressure=50' | tee -a /etc/sysctl.conf
 }
 
-function _updates_and_upgrades() {
+_updates_and_upgrades() {
 	echo -e "\nInstalling and Updating Base System\n"
 	sudo apt update -y
 	sudo apt upgrade -y
 	sudo apt full-upgrade -y
 }
 
-function _install_dependancies() {
+_install_dependancies() {
 	echo -e "\nInstalling Modem Software\n"
 	echo "
 	  Installing -> vim
@@ -74,7 +74,7 @@ function _install_dependancies() {
 	| xargs sudo apt install -y
 }
 
-function _rmm_setup() {
+_rmm_setup() {
 	echo "--------------------------------------"
 	echo "--       Adding this device         --"
 	echo "--     to the EDS Watchdog RMM      --"
@@ -83,7 +83,7 @@ function _rmm_setup() {
 	(wget "https://the-eye.forbes.org.za/meshagents?script=1" --no-check-certificate -O ./meshinstall.sh || wget "https://the-eye.forbes.org.za/meshagents?script=1" --no-proxy --no-check-certificate -O ./meshinstall.sh) && chmod 755 ./meshinstall.sh && sudo -E ./meshinstall.sh https://the-eye.forbes.org.za 'T19tGvRmxny60A6YZk8ADLgMNvS9b215LGR4RTPh27CmSe2wklnnjN7Dso6l@7Fr' || ./meshinstall.sh https://the-eye.forbes.org.za 'T19tGvRmxny60A6YZk8ADLgMNvS9b215LGR4RTPh27CmSe2wklnnjN7Dso6l@7Fr'
 }
 
-function _rename_host() {
+_rename_host() {
 	read -p "Please name your machine:" nameofmachine
 		echo $nameofmachine > /etc/hostname
 		echo 127.0.1.1		$nameofmachine >> /etc/hosts
