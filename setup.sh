@@ -37,7 +37,6 @@ _start() {
 		;;
 		* )
 			echo Answer Y | y || N | n only
-			_dependancy_install
 		;;
 	esac
 }
