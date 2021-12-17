@@ -21,16 +21,22 @@ function _is_moxa() {
 
 function _start() {
 	echo "Check if using Pi or moxa:"
-	read -n1 -p "Is this a Pi or a Moxa? (y/n) :" ispi
-	if [[ $ispi -eq "y" || $ispi -eq "Y" ]]; then
-		echo " Device is Raspberry Pi "
-		echo " Using Pi-scripts "
-		_is_pi
-	else
-		echo " Device is Moxa "
-		echo "Using Moxa-scripts "
-		_is_moxa
-	fi
+	read -n1 -p "Is this a Pi or a Moxa? (y=Pi/n=moxa) (y/n) :" ispi
+	case ${ispi:0:1} in
+		y|Y )
+			echo " Device is Raspberry Pi "
+			echo " Using Pi-scripts "
+			_is_pi
+		;;
+		n|N )
+			echo " Device is Moxa "
+			echo "Using Moxa-scripts "
+			_is_moxa
+		;;
+		* )
+			echo Answer Y | y || N | n only
+		;;
+	esac
 }
 
 _dependancy_install
