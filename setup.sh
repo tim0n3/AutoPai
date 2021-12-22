@@ -21,7 +21,7 @@ _is_moxa() {
 	bash AutoMoxa.sh
 }
 
-_start() {
+function _start() {
 	echo "Check if using Pi or moxa:"
 	read -n1 -p "Is this a Pi or a Moxa? (y=Pi/n=moxa) (y/n) :" ispi
 	case ${ispi:0:1} in

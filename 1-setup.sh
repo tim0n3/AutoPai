@@ -18,7 +18,7 @@ EOF
 sudo udevadm trigger
 }
 
-_is_mik() {
+function _is_mik() {
 	echo -e "Configuring network settings:\n"
 	read -n1 -p "Are you using a MikroTik LTE device (y/n):" networksettings
 	case ${networksettings:0:1} in

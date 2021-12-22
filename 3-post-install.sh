@@ -47,7 +47,7 @@ _controls_key() {
 "
 }
 
-_post_install_reboot() {
+function _post_install_reboot() {
 	echo "Reboot the Pi now?" && sleep 2
 	read -n1 -p "(y/n) :" reboot
 	case ${reboot:0:1} in

@@ -1,4 +1,5 @@
 #!/bin/bash
+# This script must be run with sudo
 _ddos_firewall_rules() {
 	echo -e "IP Tables Anti-DDoS rules will be configured now.\n"
 	echo -e "# Raw Rules:\n"

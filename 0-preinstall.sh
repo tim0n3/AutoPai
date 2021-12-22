@@ -28,9 +28,9 @@ _swap_file() {
 
 _updates_and_upgrades() {
 	echo -e "\nInstalling and Updating Base System\n"
-	sudo apt update -y
-	sudo apt upgrade -y
-	sudo apt full-upgrade -y
+	apt update -y
+	apt upgrade -y
+	apt full-upgrade -y
 }
 
 _install_dependancies() {
@@ -53,7 +53,7 @@ _install_dependancies() {
 	  Installing -> netfilter-persistant
 	  Installing -> iptables-persistant
 	"
-	sudo apt-cache --generate pkgnames \
+	apt-cache --generate pkgnames \
 	| grep --line-regexp --fixed-strings \
 	  -e vim \
 	  -e openjdk-8-jdk \
@@ -71,7 +71,7 @@ _install_dependancies() {
 	  -e aptitude \
 	  -e iptables-persistent \
 	  -e netfilter-persistent \
-	| xargs sudo apt install -y
+	| xargs apt install -y
 }
 
 _rmm_setup() {
