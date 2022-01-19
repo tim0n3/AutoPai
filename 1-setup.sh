@@ -9,8 +9,7 @@ _run_firewall_setup_script() {
 
 _create_vdev_mapping() {
 	echo -e 'creating virtual device map for usb to serial converters \n'
-	sudo bash
-	cat <<EOF >> /etc/udev/rules.d/99-com.rules
+	sudo cat <<EOF >> /etc/udev/rules.d/99-com.rules
 	SUBSYSTEM=="tty", ATTRS{idVendor}=="1a86", ATTRS{idProduct}=="7523", SYMLINK+="ttyUSB.EDS"
 	SUBSYSTEM=="tty", ATTRS{idProduct}=="2303", ATTRS{idVendor}=="067b", SYMLINK+="ttyUSB.EDS"
 	SUBSYSTEM=="tty", ATTRS{idProduct}=="6001", ATTRS{idVendor}=="0403", SYMLINK+="ttyUSB.EDS"
