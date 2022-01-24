@@ -19,8 +19,8 @@ _swap_file() {
 	cp /etc/fstab /etc/fstab.bak
 	echo '/swapfile none swap sw 0 0' | tee -a /etc/fstab
 	cat /proc/sys/vm/swappiness
-	sysctl vm.swappiness=10
-	echo 'vm.swappiness=10' | tee -a /etc/sysctl.conf
+	sysctl vm.swappiness=1
+	echo 'vm.swappiness=1' | tee -a /etc/sysctl.conf
 	cat /proc/sys/vm/vfs_cache_pressure
 	sysctl vm.vfs_cache_pressure=50
 	echo 'vm.vfs_cache_pressure=50' | tee -a /etc/sysctl.conf
