@@ -67,15 +67,16 @@ _rename_host() {
 			y|Y|yes|Yes|YES)
 				echo $nameofmachine > /etc/hostname
 				echo 127.0.1.1		$nameofmachine >> /etc/hosts
-			;;
+				;;
 			n|N|no|No|NO)
 				echo "Please, try again: "
 				_rename_host
-			;;
+				;;
 			*)
 				echo Answer Y | y || N | n only ! ;
 				_rename_host
-			;;
+				;;
+		esac
 }
 
 _swap_file
