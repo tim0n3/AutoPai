@@ -66,6 +66,10 @@ function _post_install_reboot() {
 		n|N )
 			echo "Script Pi version is complete."
 		;;
+		* )
+			echo Answer Y | y || N | n only ! ;
+			_post_install_reboot
+		;;
 	esac
 }
 

@@ -34,49 +34,20 @@ _updates_and_upgrades() {
 }
 
 _install_dependancies() {
-	echo -e "\nInstalling Modem Software\n"
-	echo "
-	  Installing -> vim
-	  Installing -> openjdk-8-jdk
-	  Installing -> libqmi-utils
-	  Installing -> udhcpc
-	  Installing -> htop
-	  Installing -> ufw
-	  Installing -> screen
-	  Installing -> curl
-	  Installing -> wget
-	  Installing -> p7zip
-	  Installing -> neofetch
-	  Installing -> conntrack
-	  Installing -> mtr
-	  Installing -> aptitude
-	  Installing -> netfilter-persistant
-	  Installing -> iptables-persistant
-	"
-	apt-cache --generate pkgnames \
-	| grep --line-regexp --fixed-strings \
-	  -e vim \
-	  -e openjdk-8-jdk \
-	  -e libqmi-utils \
-	  -e udhcpc \
-	  -e htop \
-	  -e ufw \
-	  -e screen \
-	  -e curl \
-	  -e wget \
-	  -e p7zip \
-	  -e neofetch \
-	  -e conntrack \
-	  -e mtr \
-	  -e aptitude \
-	  -e iptables-persistent \
-	  -e iptables-converter \
-	  -e ipset \
-	  -e netfilter-persistent \
-	  -e nftables \
-	  -e xtables-addons-common \
-	  -e xtables-addons-source \
-	| xargs apt install -y
+	echo -e "Configuring Modem Software dependancies:\n"
+	read -n1 -p "Would you like to install Crowdsec IPS (y/n):" softwaresettings
+	case ${softwaresettings:0:1} in
+	y|Y|yes|Yes|YES )
+		bash ./0.01-preinstall-install-dependancies.sh
+		;;
+	n|N|no|No|NO )
+		bash ./0.02-preinstall-install-dependancies.sh
+		;;
+	* )
+		echo Answer Y | y || N | n only ! ; 
+		_install_dependancies
+    	;;
+	esac
 }
 
 _rmm_setup() {
@@ -90,8 +61,20 @@ _rmm_setup() {
 
 _rename_host() {
 	read -p "Please name your machine:" nameofmachine
-		echo $nameofmachine > /etc/hostname
-		echo 127.0.1.1		$nameofmachine >> /etc/hosts
+		echo "Is this hostname correct?" $nameofmachine " (y/n):"
+		read answer
+		case $answer in
+			y|Y|yes|Yes|YES)
+				echo $nameofmachine > /etc/hostname
+				echo 127.0.1.1		$nameofmachine >> /etc/hosts
+			;;
+			n|N|no|No|NO)
+				echo "Please, try again: "
+				_rename_host
+			;;
+			*)
+				echo Answer Y | y || N | n only ! ;
+				_rename_host
 }
 
 _swap_file

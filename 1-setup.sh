@@ -1,5 +1,5 @@
 #!/bin/bash
-# This script has for all required actions
+# This script has permissions for all required actions
 _run_firewall_setup_script() {
 	echo "--------------------------------------"
 	echo "--   Configuring Pi Firewall        --"
@@ -42,7 +42,8 @@ EOF
 EOF
 		;;
 		* )
-			echo Answer Y | y || N | n only
+			echo Answer Y | y || N | n only ;
+			_is_mik
     	;;
 	esac
 }

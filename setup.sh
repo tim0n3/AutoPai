@@ -2,21 +2,19 @@
 
 _dependancy_install() {
 	echo "Installing git to clone the AutoPai repo"
-	sudo apt install git -y
-}
-
-_is_pi() {
+	sudo apt update -yqq ;
+	sudo apt install git -yqq ;
 	git clone https://github.com/tim0n3/AutoPai.git ;
 	cd AutoPai ;
 	chmod +x *.sh ;
+}
+
+_is_pi() {
 	echo "running AutoPi.sh and linked scripts"
 	bash AutoPi.sh
 }
 
 _is_moxa() {
-	git clone https://github.com/tim0n3/AutoPai.git ;
-	cd AutoPai ;
-	chmod +x *.sh ;
 	echo "running AutoMoxa.sh and linked scripts"
 	bash AutoMoxa.sh
 }
@@ -36,8 +34,8 @@ function _start() {
 			_is_moxa
 		;;
 		* )
-			echo Answer Y | y || N | n only
-			bash ./setup.sh
+			echo Answer Y | y || N | n only ;
+			_start
 		;;
 	esac
 }
