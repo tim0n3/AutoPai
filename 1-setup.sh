@@ -49,15 +49,27 @@ EOF
 }
 
 _modem_service_install() {
-	echo "--------------------------------------"
-	echo "--   SystemV service install        --"
-	echo "--------------------------------------"
-	cp /home/pi/app/energydrive.service /etc/systemd/system/energydrive.service
-	cp /home/pi/app/watchdog.service /etc/systemd/system/watchdog.service
-	systemctl enable energydrive.service
-	systemctl stop energydrive.service
-	systemctl enable watchdog.service
-	systemctl stop watchdog.service
+	read -n1 -p "Install modem & watchdog service? (y/n):" serviceinstall
+		case $(serviceinstall:0:1) in
+		y|Y|yes|Yes|YES )
+			echo "--------------------------------------"
+			echo "--   SystemV service install        --"
+			echo "--------------------------------------"
+			cp /home/pi/app/energydrive.service /etc/systemd/system/energydrive.service
+			cp /home/pi/app/watchdog.service /etc/systemd/system/watchdog.service
+			systemctl enable energydrive.service
+			systemctl stop energydrive.service
+			systemctl enable watchdog.service
+			systemctl stop watchdog.service
+		;;
+		n|N|no|No|NO )
+			echo "You've opted to install the services later"
+		;;
+		* )
+			echo Answer Y | y || N | n only ! ; 
+			_modem_service_install
+		;;
+	esac
 }
 
 _run_firewall_setup_script
