@@ -70,7 +70,12 @@ _install_dependancies() {
 	  -e mtr \
 	  -e aptitude \
 	  -e iptables-persistent \
+	  -e iptables-converter \
+	  -e ipset \
 	  -e netfilter-persistent \
+	  -e nftables \
+	  -e xtables-addons-common \
+	  -e xtables-addons-source \
 	| xargs apt install -y
 }
 
