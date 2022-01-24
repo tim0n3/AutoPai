@@ -75,6 +75,7 @@ _rename_host() {
 			*)
 				echo Answer Y | y || N | n only ! ;
 				_rename_host
+			;;
 }
 
 _swap_file
