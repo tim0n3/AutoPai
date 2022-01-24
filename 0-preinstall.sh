@@ -8,16 +8,16 @@ _swap_file() {
 	swapon --show
 	free -h
 	df -h
-	fallocate -l 1G /swapfile
-	ls -lh /swapfile
-	chmod 600 /swapfile
-	ls -lh /swapfile
-	mkswap /swapfile
-	swapon /swapfile
+	fallocate -l 1G /swap
+	ls -lh /swap
+	chmod 600 /swap
+	ls -lh /swap
+	mkswap /swap
+	swapon /swap
 	swapon --show
 	free -h
 	cp /etc/fstab /etc/fstab.bak
-	echo '/swapfile none swap sw 0 0' | tee -a /etc/fstab
+	echo '/swap none swap sw 0 0' | tee -a /etc/fstab
 	cat /proc/sys/vm/swappiness
 	sysctl vm.swappiness=1
 	echo 'vm.swappiness=1' | tee -a /etc/sysctl.conf
