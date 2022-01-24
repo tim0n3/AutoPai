@@ -51,7 +51,7 @@ EOF
 _modem_service_install() {
 	read -n1 -p "Install modem & watchdog service? (y/n):" serviceinstall
 	case ${serviceinstall:0:1} in
-	y|Y| )
+	y|Y )
 		echo "--------------------------------------"
 		echo "--   SystemV service install        --"
 		echo "--------------------------------------"
@@ -62,7 +62,7 @@ _modem_service_install() {
 		systemctl enable watchdog.service
 		systemctl stop watchdog.service
 	;;
-	n|N| )
+	n|N )
 		echo "You've opted to install the services later"
 	;;
 	esac
