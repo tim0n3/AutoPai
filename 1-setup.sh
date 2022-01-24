@@ -65,11 +65,7 @@ _modem_service_install() {
 		n|N|no|No|NO )
 			echo "You've opted to install the services later"
 		;;
-		* )
-			echo Answer Y | y || N | n only ! ; 
-			_modem_service_install
-		;;
-	esac
+		esac
 }
 
 _run_firewall_setup_script
