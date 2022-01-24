@@ -1,20 +1,20 @@
 #!/bin/bash
-# This script has sudo for all required sudo actions
+# This script has for all required actions
 _run_firewall_setup_script() {
 	echo "--------------------------------------"
 	echo "--   Configuring Pi Firewall        --"
 	echo "--------------------------------------"
-	sudo bash ./ufw.sh
+	bash ./ufw.sh
 }
 
 _create_vdev_mapping() {
 	echo -e 'creating virtual device map for usb to serial converters \n'
-	sudo cat <<EOF >> /etc/udev/rules.d/99-com.rules
+	cat <<EOF >> /etc/udev/rules.d/99-com.rules
 	SUBSYSTEM=="tty", ATTRS{idVendor}=="1a86", ATTRS{idProduct}=="7523", SYMLINK+="ttyUSB.EDS"
 	SUBSYSTEM=="tty", ATTRS{idProduct}=="2303", ATTRS{idVendor}=="067b", SYMLINK+="ttyUSB.EDS"
 	SUBSYSTEM=="tty", ATTRS{idProduct}=="6001", ATTRS{idVendor}=="0403", SYMLINK+="ttyUSB.EDS"
 EOF
-sudo udevadm trigger
+udevadm trigger
 }
 
 function _is_mik() {
@@ -23,7 +23,6 @@ function _is_mik() {
 	case ${networksettings:0:1} in
 	y|Y )
 		echo "Configuring MikroTik static network client on iface eth0"
-		sudo bash
 		cat <<EOF >> /etc/dhcpcd.conf
 			# define static profile\n
 			interface eth0\n
@@ -36,7 +35,6 @@ EOF
 		;;
 		n|N )
 		echo "configuring eth0 iface for Modbus TCP with ip 192.168.0.200\n"
-		sudo bash
 		cat <<EOF >> /etc/dhcpcd.conf
 			# define static profile
 			interface eth0
@@ -53,12 +51,12 @@ _modem_service_install() {
 	echo "--------------------------------------"
 	echo "--   SystemV service install        --"
 	echo "--------------------------------------"
-	sudo cp /home/pi/app/energydrive.service /etc/systemd/system/energydrive.service
-	sudo cp /home/pi/app/watchdog.service /etc/systemd/system/watchdog.service
-	sudo systemctl enable energydrive.service
-	sudo systemctl stop energydrive.service
-	sudo systemctl enable watchdog.service
-	sudo systemctl stop watchdog.service
+	cp /home/pi/app/energydrive.service /etc/systemd/system/energydrive.service
+	cp /home/pi/app/watchdog.service /etc/systemd/system/watchdog.service
+	systemctl enable energydrive.service
+	systemctl stop energydrive.service
+	systemctl enable watchdog.service
+	systemctl stop watchdog.service
 }
 
 _run_firewall_setup_script
