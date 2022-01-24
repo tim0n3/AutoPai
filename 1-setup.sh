@@ -50,7 +50,7 @@ EOF
 
 _modem_service_install() {
 	read -n1 -p "Install modem & watchdog service? (y/n):" serviceinstall
-	case $(serviceinstall:0:1) in
+	case ${serviceinstall:0:1} in
 	y|Y| )
 		echo "--------------------------------------"
 		echo "--   SystemV service install        --"
