@@ -57,7 +57,7 @@ _pkgs_cs_ips() {
 		-e xtables-addons-common \
 		-e xtables-addons-source \
 		-e crowdsec \
-	| xargs apt install -y
+	| xargs apt install -y --no-install-recommends
 }
 
 _pkgs_cs_ips
