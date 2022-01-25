@@ -23,7 +23,7 @@ _pkgs_cs_ips() {
 		Installing -> conntrack
 		Installing -> mtr
 		Installing -> aptitude
-		Installing -> iptables-persistent
+		Installing -> iptables*
 		Installing -> iptables-converter
 		Installing -> ipset
 		Installing -> netfilter-persistent
