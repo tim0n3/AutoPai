@@ -17,7 +17,7 @@ _pkgs_ips() {
 		Installing -> conntrack
 		Installing -> mtr
 		Installing -> aptitude
-		Installing -> iptables-persistent
+		Installing -> iptables*
 		Installing -> iptables-converter
 		Installing -> ipset
 		Installing -> netfilter-persistent
@@ -41,6 +41,7 @@ _pkgs_ips() {
 		-e conntrack \
 		-e mtr \
 		-e aptitude \
+		-e iptables* \
 		-e iptables-persistent \
 		-e iptables-converter \
 		-e ipset \
