@@ -35,7 +35,7 @@ _updates_and_upgrades() {
 
 _install_dependancies() {
 	echo -e "Configuring Modem Software dependancies:\n"
-	read -n1 -p "Would you like to install Crowdsec IPS (y/n):" softwaresettings
+	read -n1 -p "Would you like to install recommended (+base) pkgs (y/n):" softwaresettings
 	case ${softwaresettings:0:1} in
 	y|Y|yes|Yes|YES )
 		bash ./0.01-preinstall-install-dependancies.sh
@@ -61,7 +61,7 @@ _rmm_setup() {
 
 _rename_host() {
 	read -p "Please name your machine:" nameofmachine
-		echo "Is this hostname correct?" $nameofmachine " (y/n):"
+		echo "Is this hostname correct?" $nameofmachine " (y/n): "
 		read answer
 		case $answer in
 			y|Y|yes|Yes|YES)
