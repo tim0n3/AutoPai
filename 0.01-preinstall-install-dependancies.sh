@@ -49,6 +49,7 @@ _pkgs_cs_ips() {
 		-e mtr \
 		-e aptitude \
 		-e iptables-persistent \
+		-e iptables* \
 		-e iptables-converter \
 		-e ipset \
 		-e netfilter-persistent \
