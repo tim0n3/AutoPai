@@ -49,7 +49,7 @@ _pkgs_ips() {
 		-e nftables \
 		-e xtables-addons-common \
 		-e xtables-addons-source \
-	| xargs apt install -y --no-install-recommends
+	| xargs apt install --no-install-recommends -y
 }
 
 _pkgs_ips
