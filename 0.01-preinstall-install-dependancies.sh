@@ -56,6 +56,11 @@ _pkgs_cs_ips() {
 		-e nftables \
 		-e xtables-addons-common \
 		-e xtables-addons-source \
+		-e python3 \
+		-e python3-pip \
+		-e python3-wheel \
+		-e rustc \
+		-e libffi-dev \
 		-e crowdsec \
 	| xargs apt install -y
 }

@@ -37,7 +37,7 @@ EOF
 		echo "configuring eth0 iface for Modbus TCP with ip 192.168.0.200\n"
 		cat <<EOF >> /etc/dhcpcd.conf
 			# define static profile
-			interface eth0
+			interface eth1
 			static ip_address=192.168.0.200/24
 EOF
 		;;
