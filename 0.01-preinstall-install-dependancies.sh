@@ -36,6 +36,7 @@ _pkgs_cs_ips() {
 	| grep --line-regexp --fixed-strings \
 		-e vim \
 		-e openjdk-8-jdk \
+		-e openjdk-11-jdk \
 		-e libqmi-utils \
 		-e udhcpc \
 		-e htop \
@@ -43,7 +44,7 @@ _pkgs_cs_ips() {
 		-e screen \
 		-e curl \
 		-e wget \
-		-e p7zip \
+		-e p7zip* \
 		-e neofetch \
 		-e conntrack \
 		-e mtr \
@@ -58,9 +59,7 @@ _pkgs_cs_ips() {
 		-e xtables-addons-source \
 		-e python3 \
 		-e python3-pip \
-		-e python3-wheel \
-		-e rustc \
-		-e libffi-dev \
+		-e vnstat \
 		-e crowdsec \
 	| xargs apt install -y
 }
