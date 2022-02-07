@@ -19,13 +19,36 @@ Run the command and follow the assistant:
 ```
 wget https://raw.githubusercontent.com/tim0n3/AutoPai/master/setup.sh && bash setup.sh
 ```
-## OR 
 ### Manually clone and run the setup file directly
 ```
 git clone https://github.com/tim0n3/AutoPai.git ;\
 cd AutoPai ;\
 chmod +x *.sh ;\
 bash setup.sh
+```
+### 0-touch mTCP/over/LTEHat setup
+```
+git clone https://github.com/tim0n3/AutoPai.git ;\
+cd AutoPai ;\
+chmod +x *.sh ;\
+sudo bash lteHatRootTCP.sh > ./stout-serial.log 2>&1
+```
+#### Tail the log
+```
+cd /home/pi/AutoPai/ ;
+tail -f stout-serial.log
+```
+### 0-touch mTCP/over/EtherNet
+```
+Comming soon:
+```
+### 0-touch RTU/over/232
+```
+Comming soon:
+```
+### 0-touch RTU/over/485
+```
+Comming soon:
 ```
 Once it ends, you can continue adding the certificate into IoT core and ensuring data is pushing into bigQuery
 
