@@ -1,5 +1,7 @@
 #!/bin/bash
 # This script has permissions for all required actions
+alias distro="cat /etc/os-release | grep ID=d"
+
 _run_firewall_setup_script() {
 	echo "--------------------------------------"
 	echo "--   Configuring Pi Firewall        --"
@@ -24,13 +26,13 @@ function _is_mik() {
 	y|Y )
 		echo "Configuring MikroTik static network client on iface eth0"
 		cat <<EOF >> /etc/dhcpcd.conf
-			# define static profile\n
-			interface eth0\n
-			# MikroTik eth0 configuration\n
-			static ip_address=192.168.88.200/24\n
-			static routers=192.168.88.1\n
-			static domain_name_servers=192.168.88.1\n
-			static domain_name_servers=8.8.8.8\n
+		# define static profile\n
+		interface eth0\n
+		# MikroTik eth0 configuration\n
+		static ip_address=192.168.88.200/24\n
+		static routers=192.168.88.1\n
+		static domain_name_servers=192.168.88.1\n
+		static domain_name_servers=8.8.8.8\n
 EOF
 		;;
 		n|N )
@@ -44,7 +46,7 @@ EOF
 		* )
 			echo Answer Y | y || N | n only ;
 			_is_mik
-    	;;
+		;;
 	esac
 }
 
@@ -55,12 +57,20 @@ _modem_service_install() {
 		echo "--------------------------------------"
 		echo "--   SystemV service install        --"
 		echo "--------------------------------------"
-		cp /home/pi/app/energydrive.service /etc/systemd/system/energydrive.service
-		cp /home/pi/app/watchdog.service /etc/systemd/system/watchdog.service
-		systemctl enable energydrive.service
-		systemctl stop energydrive.service
-		systemctl enable watchdog.service
-		systemctl stop watchdog.service
+		cp /home/pi/app/energydrive.service /etc/systemd/system/energydrive.service ;
+		cp /home/pi/app/watchdog.service /etc/systemd/system/watchdog.service ;
+		systemctl enable energydrive.service ;
+		systemctl stop energydrive.service ;
+		systemctl enable watchdog.service ;
+		systemctl stop watchdog.service ;
+##ubuntu
+		#cp /home/ubuntu/app/energydrive.service /etc/systemd/system/energydrive.service ;
+		#cp /home/ubuntu/app/watchdog.service /etc/systemd/system/watchdog.service ;
+		#systemctl enable energydrive.service ;
+		#systemctl stop energydrive.service ;
+		#systemctl enable watchdog.service ;
+		#systemctl stop watchdog.service ;
+
 	;;
 	n|N )
 		echo "You've opted to install the services later"

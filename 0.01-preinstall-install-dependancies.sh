@@ -36,7 +36,7 @@ _pkgs_cs_ips() {
 	| grep --line-regexp --fixed-strings \
 		-e vim \
 		-e openjdk-8-jdk \
-		-e openjdk-11-jdk \
+		-e openjdk-17-jdk \
 		-e libqmi-utils \
 		-e udhcpc \
 		-e htop \

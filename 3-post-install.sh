@@ -23,8 +23,8 @@ _iot_core_reminder() {
 	echo "--------------------------------------"
 	echo "-- Paste the RSA cert into IoT Core --"
 	echo "--------------------------------------"
-	cat /home/pi/app/rsa_cert.pem & sleep 10
 	echo -e "and remember to update the parameters of the config.json and iot-core-config.json files respectively!!!\n"
+	cat /home/pi/app/rsa_cert.pem & sleep 10
 	echo -e "\nDone!\n"
 }
 

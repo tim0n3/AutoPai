@@ -1,5 +1,5 @@
 #!/bin/bash
-function _check_internet(){
+function _check_internet() {
 	ping -c4 www.google.com
 	let a=$?
 	if [ "$a" != "0" ]; then
