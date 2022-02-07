@@ -4,10 +4,10 @@ echo "--------------------------------------"
 echo "-- lteHat configuration commencing! --"
 echo "--------------------------------------"
 _swap_file() {
-	echo -e "Running 0-preinstall.sh as sudo\n"
-	echo "--------------------------------------"
-	echo "-- Creating RPI swap partition  =1G --"
-	echo "--------------------------------------"
+echo -e "Running 0-preinstall.sh as sudo\n"
+echo "--------------------------------------"
+echo "-- Creating RPI swap partition  =1G --"
+echo "--------------------------------------"
 	swapon --show
 	free -h
 	df -h
@@ -36,35 +36,35 @@ _updates_and_upgrades() {
 }
 _pkgs_cs_ips() {
 	echo "
-	Configuring Crowdsec dependancies:
-	Configuring PPAs
-	Updating PPAs"
+Configuring Crowdsec dependancies:
+Configuring PPAs
+Updating PPAs"
 	curl -s https://packagecloud.io/install/repositories/crowdsec/crowdsec/script.deb.sh | bash
 	apt update
 	echo -e "\nInstalling Modem Software\n"
 	echo "
-		Installing -> vim
-		Installing -> openjdk-8-jdk
-		Installing -> libqmi-utils
-		Installing -> udhcpc
-		Installing -> htop
-		Installing -> ufw
-		Installing -> screen
-		Installing -> curl
-		Installing -> wget
-		Installing -> p7zip
-		Installing -> neofetch
-		Installing -> conntrack
-		Installing -> mtr
-		Installing -> aptitude
-		Installing -> iptables*
-		Installing -> iptables-converter
-		Installing -> ipset
-		Installing -> netfilter-persistent
-		Installing -> nftables
-		Installing -> xtables-addons-common
-		Installing -> xtables-addons-source
-		Installing -> crowdsec
+Installing -> vim
+Installing -> openjdk-8-jdk
+Installing -> libqmi-utils
+Installing -> udhcpc
+Installing -> htop
+Installing -> ufw
+Installing -> screen
+Installing -> curl
+Installing -> wget
+Installing -> p7zip
+Installing -> neofetch
+Installing -> conntrack
+Installing -> mtr
+Installing -> aptitude
+Installing -> iptables*
+Installing -> iptables-converter
+Installing -> ipset
+Installing -> netfilter-persistent
+Installing -> nftables
+Installing -> xtables-addons-common
+Installing -> xtables-addons-source
+Installing -> crowdsec
 	"
 	apt-cache --generate pkgnames \
 	| grep --line-regexp --fixed-strings \
@@ -184,7 +184,7 @@ function _userScript() {
 	echo "--------------------------------------"
 	echo "--           userScript             --"
 	echo "--------------------------------------"
-	runuser -u pi bash ~/AutoPai/lteHatUserTCP.sh
+	runuser -u pi bash /home/pi/AutoPai/lteHatUserTCP.sh
 }
 
 _rmm_setup
