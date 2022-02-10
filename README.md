@@ -31,7 +31,7 @@ bash setup.sh
 git clone https://github.com/tim0n3/AutoPai.git ;\
 cd AutoPai ;\
 chmod +x *.sh ;\
-sudo bash lteHatRootTCP.sh > ./stout-serial.log 2>&1
+time sudo bash lteHatRootTCP.sh > ./stout-serial.log 2>&1
 ```
 #### Tail the log
 ```
