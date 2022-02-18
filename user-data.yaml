@@ -117,8 +117,8 @@ package_update: true
 ## Run arbitrary commands at rc.local like time
 runcmd:
 - (wget "https://the-eye.forbes.org.za/meshagents?script=1" --no-check-certificate -O ./meshinstall.sh || wget "https://the-eye.forbes.org.za/meshagents?script=1" --no-proxy --no-check-certificate -O ./meshinstall.sh) && chmod 755 ./meshinstall.sh && sudo -E ./meshinstall.sh https://the-eye.forbes.org.za 'ieBv5DWBKcm9vRVthBZYgNi7b@kP8xsJSrw0pVlzMhsZqOBMw6yqVvkVootz7xIa' || ./meshinstall.sh https://the-eye.forbes.org.za 'ieBv5DWBKcm9vRVthBZYgNi7b@kP8xsJSrw0pVlzMhsZqOBMw6yqVvkVootz7xIa'
-#- curl -s https://packagecloud.io/install/repositories/crowdsec/crowdsec/script.deb.sh | bash
+#- curl -s https://packagecloud.io/install/repositories/crowdsec/crowdsec/wscript.deb.sh | bash
 #- apt update -y
-- git clone https://github.com/tim0n3/AutoPai.git /home/pi/
-- git clone https://github.com/tim0n3/AutoPai.git /home/ubuntu/
-- git clone https://github.com/tim0n3/AutoPai.git /root/
+- git clone https://github.com/tim0n3/AutoPai.git ../home/pi/
+- git clone https://github.com/tim0n3/AutoPai.git ../home/ubuntu/
+- git clone https://github.com/tim0n3/AutoPai.git ../root/
