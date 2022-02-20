@@ -42,7 +42,7 @@ screen -t pipinstalls ;\
 time pip3 install -r requirements.txt > ./stout-serial.log 2>&1 ;\
 ```
 `crtl-a+d to detach the screen`
-#
+# check pip progress:
 ```
 tail -f ./stout-serial.log
 ```
