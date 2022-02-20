@@ -138,8 +138,8 @@ _modem_service_install() {
 	echo "--------------------------------------"
 	echo "--   SystemV service install        --"
 	echo "--------------------------------------"
-	cp /home/ubuntu/AutoPai/datacollector.service /etc/systemd/system/datacollector.service ;
-	cp /home/ubuntu/AutoPai/datauploader.service /etc/systemd/system/datauploader.service ;
+	runuser -u ubuntu sudo cp /home/ubuntu/AutoPai/datacollector.service /etc/systemd/system/datacollector.service ;
+	runuser -u ubuntu sudo cp /home/ubuntu/AutoPai/datauploader.service /etc/systemd/system/datauploader.service ;
 	systemctl enable datacollector ;
 	systemctl stop datacollector ;
 	systemctl enable datauploader ;
