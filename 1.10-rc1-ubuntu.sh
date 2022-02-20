@@ -210,12 +210,6 @@ _tz() {
 	sudo timedatectl set-timezone Africa/Johannesburg 
 	sudo timedatectl
 }
-function _userScript() {
-	echo "--------------------------------------"
-	echo "--           userScript             --"
-	echo "--------------------------------------"
-	runuser -u pi bash /home/pi/AutoPai/lteHatUserTCP.sh
-}
 _controls_key() {
 	echo "
 	----------------------------------------------------------
@@ -248,5 +242,6 @@ function _main() {
 	_ufw_firewall_rules ;
 	_list_all_firewall_rules ;
 	_controls_key ;
+	exit 0
 }
 _main
