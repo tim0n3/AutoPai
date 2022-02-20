@@ -122,7 +122,7 @@ Installing -> paho-mqtt==1.5.1
 Installing -> psutil==5.9.0
 Installing -> google-cloud-pubsub==2.9.0
 "
-	runuser -u ubuntu pip3 install -r requirements.txt
+	runuser -l ubuntu pip3 install -r requirements.txt
 
 }
 _rmm_setup() {
