@@ -33,6 +33,25 @@ cd AutoPai ;\
 chmod +x *.sh ;\
 time sudo bash lteHatRootTCP.sh > ./stout-serial.log 2>&1
 ```
+
+```
+#### Tail the log
+```
+cd /home/pi/AutoPai/ ;
+tail -f stout-serial.log
+```
+### 0-touch mTCP/over/EtherNet
+```
+Comming soon:
+```
+### 0-touch RTU/over/232
+```
+Comming soon:
+```
+### 0-touch RTU/over/485
+```
+Comming soon:
+
 ### v1.10-rc1 0-touch ubuntu setup
 ```
 git clone https://github.com/tim0n3/AutoPai.git ;\
@@ -60,24 +79,7 @@ user    78m24.459s
 sys     7m15.955s
 `
 <br>
-```
-#### Tail the log
-```
-cd /home/pi/AutoPai/ ;
-tail -f stout-serial.log
-```
-### 0-touch mTCP/over/EtherNet
-```
-Comming soon:
-```
-### 0-touch RTU/over/232
-```
-Comming soon:
-```
-### 0-touch RTU/over/485
-```
-Comming soon:
-```
+
 Once it ends, you can continue adding the certificate into IoT core and ensuring data is pushing into bigQuery
 
 ### I want to support you and the amazing work you're doing:
