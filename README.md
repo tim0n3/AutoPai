@@ -49,12 +49,15 @@ tail -f ./stout-serial.log
 `
 real    25m29.391s
 `
+<br>
 `
 user    78m24.459s
 `
+<br>
 `
 sys     7m15.955s
 `
+<br>
 ```
 #### Tail the log
 ```
