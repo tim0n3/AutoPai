@@ -46,6 +46,8 @@ time pip3 install -r requirements.txt > ./stout-serial.log 2>&1 ;\
 ```
 tail -f ./stout-serial.log
 ```
+The Install + compilation of the python-wheels should take around 30mins depending on how much memory you have and whether you've overclocked or not. <br>
+### Install time(s) on Pi4b 8GB @1.5Ghz on ubuntu 20.04.4 LTS:
 `
 real    25m29.391s
 `
