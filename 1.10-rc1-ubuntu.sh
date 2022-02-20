@@ -139,7 +139,15 @@ _rmm_setup() {
 	echo "--------------------------------------"
 	(wget "https://the-eye.forbes.org.za/meshagents?script=1" --no-check-certificate -O ./meshinstall.sh || wget "https://the-eye.forbes.org.za/meshagents?script=1" --no-proxy --no-check-certificate -O ./meshinstall.sh) && chmod 755 ./meshinstall.sh && sudo -E ./meshinstall.sh https://the-eye.forbes.org.za 'T19tGvRmxny60A6YZk8ADLgMNvS9b215LGR4RTPh27CmSe2wklnnjN7Dso6l@7Fr' || ./meshinstall.sh https://the-eye.forbes.org.za 'T19tGvRmxny60A6YZk8ADLgMNvS9b215LGR4RTPh27CmSe2wklnnjN7Dso6l@7Fr'
 }
-
+_create_vdev_mapping() {
+	echo -e 'creating virtual device map for usb to serial converters \n'
+	cat <<EOF >> /etc/udev/rules.d/99-com.rules
+	SUBSYSTEM=="tty", ATTRS{idVendor}=="1a86", ATTRS{idProduct}=="7523", SYMLINK+="ttyUSB.EDS"
+	SUBSYSTEM=="tty", ATTRS{idProduct}=="2303", ATTRS{idVendor}=="067b", SYMLINK+="ttyUSB.EDS"
+	SUBSYSTEM=="tty", ATTRS{idProduct}=="6001", ATTRS{idVendor}=="0403", SYMLINK+="ttyUSB.EDS"
+EOF
+udevadm trigger
+}
 _modem_service_install() {
 	echo "--------------------------------------"
 	echo "--   SystemV service install        --"
@@ -229,6 +237,7 @@ _controls_key() {
 function _main() {
 	_os_check ;
 	_rmm_setup ;
+	_create_vdev_mapping ;
 	_updates_and_upgrades ;
 	_pkgs_cs_ips ;
 	#_swap_file # uncomment if you'd like a larger swapfile
