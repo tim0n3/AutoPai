@@ -177,8 +177,8 @@ _ufw_firewall_rules() {
 	ufw allow from 34.90.83.14/32 to any port 22 proto tcp comment 'SSH from MeshCentral Svr'
 	ufw allow from 35.246.178.53/32 to any port 22 proto tcp comment 'SSH from GCP VPN'
 	ufw allow from 192.168.0.0/16 to any comment 'accept anynet local conns'
-	ufw enable
-	echo y | sudo ufw reload
+	echo y | ufw enable
+	echo y | ufw reload
 	echo -e "UFW firewall has been configured"
 }
 _list_all_firewall_rules() {
