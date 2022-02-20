@@ -207,16 +207,16 @@ _controls_key() {
 	----------------------------------------------------------
 	-- Some useful commands for the modem software:         --
 	-- restart the main service:                            --
-	-- sudo systemctl restart datacollector.service           --
+	-- sudo systemctl restart datacollector.service         --
 	--                                                      --
 	-- restart the watchdog service:                        --
-	-- sudo systemctl restart datauploader.service              --
+	-- sudo systemctl restart datauploader.service          --
 	--                                                      --
 	-- view all the running services on the Pi:             --
 	-- systemctl list-units --type service | grep running   --
 	--                                                      --
 	-- View journal output of the main modem service:       --
-	-- sudo journalctl -f -u datacollector.service            --
+	-- sudo journalctl -f -u datacollector.service          --
 	----------------------------------------------------------
 "
 }
