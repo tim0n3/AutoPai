@@ -113,6 +113,9 @@ Installing -> crowdsec
 	| xargs apt install -y
 	echo -e "\nInstalling Modem Software pip3 packages\n"
 	echo "
+Installing -> backoff==1.11.1
+Installing -> flaky==3.7.0
+Installing -> pytest==6.2.4
 Installing -> cryptography==36.0.1
 Installing -> google-api-python-client==2.34.0
 Installing -> google-auth-httplib2==0.1.0
