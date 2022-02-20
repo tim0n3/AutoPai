@@ -46,9 +46,15 @@ time pip3 install -r requirements.txt > ./stout-serial.log 2>&1 ;\
 ```
 tail -f ./stout-serial.log
 ```
+`
 real    25m29.391s
+`
+`
 user    78m24.459s
+`
+`
 sys     7m15.955s
+`
 ```
 #### Tail the log
 ```
