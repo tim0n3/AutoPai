@@ -9,4 +9,4 @@ User=ubuntu
 SyslogIdentifier=data_collector
 
 [Install]
-WantedBy=multi-user.targetDescription=Data Collection Service
+WantedBy=multi-user.target
