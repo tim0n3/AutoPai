@@ -54,7 +54,7 @@ Comming soon:
 
 ### v1.10-rc1 0-touch ubuntu setup
 ```
-git clone https://github.com/tim0n3/AutoPai.git ;\
+git clone -b ubuntu-pi https://github.com/tim0n3/AutoPai.git ;\
 cd AutoPai ;\
 chmod +x *.sh ;\
 screen -t pipinstalls ;\

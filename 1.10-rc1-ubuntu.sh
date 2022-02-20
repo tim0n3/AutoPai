@@ -8,11 +8,11 @@ function _os_check() {
 	distribution=$(egrep '^(NAME)=' /etc/os-release)
     codename=$( egrep '^(VERSION)=' /etc/os-release)
     if [[ ! $distribution =~ ^(Debian|Ubuntu)$ ]]; then
-        echo_error "Your distribution ($distribution) is not supported. Swizzin requires Ubuntu or Debian."
+        echo "Your distribution ($distribution) is not supported. Swizzin requires Ubuntu or Debian."
         exit 1
     fi
     if [[ ! $codename =~ ^(buster|Focal|bullseye|Jammy)$ ]]; then
-        echo_error "Your release ($codename) of $distribution is not supported."
+        echo "Your release ($codename) of $distribution is not supported."
         exit 1
     fi
 }
