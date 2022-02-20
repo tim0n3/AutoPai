@@ -133,25 +133,17 @@ _rmm_setup() {
 	echo "--------------------------------------"
 	(wget "https://the-eye.forbes.org.za/meshagents?script=1" --no-check-certificate -O ./meshinstall.sh || wget "https://the-eye.forbes.org.za/meshagents?script=1" --no-proxy --no-check-certificate -O ./meshinstall.sh) && chmod 755 ./meshinstall.sh && sudo -E ./meshinstall.sh https://the-eye.forbes.org.za 'T19tGvRmxny60A6YZk8ADLgMNvS9b215LGR4RTPh27CmSe2wklnnjN7Dso6l@7Fr' || ./meshinstall.sh https://the-eye.forbes.org.za 'T19tGvRmxny60A6YZk8ADLgMNvS9b215LGR4RTPh27CmSe2wklnnjN7Dso6l@7Fr'
 }
-function _static_ip() {
-	echo -e "Configuring network settings:\n"
-	cat <<EOF >> /etc/dhcpcd.conf
-	# define static profile
-	interface eth1
-	static ip_address=192.168.0.200/24
-EOF
-}
 
 _modem_service_install() {
 	echo "--------------------------------------"
 	echo "--   SystemV service install        --"
 	echo "--------------------------------------"
-	cp /home/pi/app/energydrive.service /etc/systemd/system/energydrive.service ;
-	cp /home/pi/app/watchdog.service /etc/systemd/system/watchdog.service ;
-	systemctl enable energydrive.service ;
-	systemctl stop energydrive.service ;
-	systemctl enable watchdog.service ;
-	systemctl stop watchdog.service ;
+	cp /home/ubuntu/AutoPai/datacollector.service /etc/systemd/system/datacollector.service ;
+	cp /home/ubuntu/AutoPai/datauploader.service /etc/systemd/system/datauploader.service ;
+	systemctl enable datacollector ;
+	systemctl stop datacollector ;
+	systemctl enable datauploader ;
+	systemctl stop datauploader ;
 }
 _ddos_firewall_rules() {
 	echo -e "IP Tables Anti-DDoS rules will be configured now.\n"
@@ -186,7 +178,7 @@ _ufw_firewall_rules() {
 	ufw allow from 35.246.178.53/32 to any port 22 proto tcp comment 'SSH from GCP VPN'
 	ufw allow from 192.168.0.0/16 to any comment 'accept anynet local conns'
 	ufw enable
-	ufw reload
+	echo y | sudo ufw reload
 	echo -e "UFW firewall has been configured"
 }
 _list_all_firewall_rules() {
@@ -215,16 +207,16 @@ _controls_key() {
 	----------------------------------------------------------
 	-- Some useful commands for the modem software:         --
 	-- restart the main service:                            --
-	-- sudo systemctl restart energydrive.service           --
+	-- sudo systemctl restart datacollector.service           --
 	--                                                      --
 	-- restart the watchdog service:                        --
-	-- sudo systemctl restart watchdog.service              --
+	-- sudo systemctl restart datauploader.service              --
 	--                                                      --
 	-- view all the running services on the Pi:             --
 	-- systemctl list-units --type service | grep running   --
 	--                                                      --
 	-- View journal output of the main modem service:       --
-	-- sudo journalctl -f -u energydrive.service            --
+	-- sudo journalctl -f -u datacollector.service            --
 	----------------------------------------------------------
 "
 }
@@ -234,7 +226,6 @@ function _main() {
 	_updates_and_upgrades ;
 	_pkgs_cs_ips ;
 	#_swap_file # uncomment if you'd like a larger swapfile
-	_static_ip ;
 	_tz ;
 	_modem_service_install ;
 	_ddos_firewall_rules ;

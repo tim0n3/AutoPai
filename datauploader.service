@@ -1,0 +1,12 @@
+Description=Data Uploader Service
+
+[Service]
+ExecStart=python3 /home/ubuntu/app/DataUploader.py
+WorkingDirectory=/home/ubuntu/app
+StandardOutput=syslog
+StandardError=syslog
+User=ubuntu
+SyslogIdentifier=data_collector_uploader
+
+[Install]
+WantedBy=multi-user.target

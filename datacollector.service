@@ -1,0 +1,12 @@
+Description=Data Collection Service
+
+[Service]
+ExecStart=/usr/bin/java -jar /home/ubuntu/app/DataCollector.jar
+WorkingDirectory=/home/ubuntu/app
+StandardOutput=syslog
+StandardError=syslog
+User=ubuntu
+SyslogIdentifier=data_collector
+
+[Install]
+WantedBy=multi-user.targetDescription=Data Collection Service
