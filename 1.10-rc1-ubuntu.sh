@@ -55,6 +55,9 @@ Updating PPAs"
 	curl -s https://packagecloud.io/install/repositories/crowdsec/crowdsec/script.deb.sh | bash
 	apt update
 	echo -e "\nInstalling Modem Software apt packages\n"
+	echo -e "\nSetting iptables-persistent prompts to auto-select yes\n"
+	echo iptables-persistent iptables-persistent/autosave_v4 boolean true | sudo debconf-set-selections
+	echo iptables-persistent iptables-persistent/autosave_v6 boolean true | sudo debconf-set-selections
 	echo "
 Installing -> vim
 Installing -> openjdk-8-jdk
