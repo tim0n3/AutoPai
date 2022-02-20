@@ -11,7 +11,7 @@ function _os_check() {
         echo "Your distribution ($distribution) is not supported. Swizzin requires Ubuntu or Debian."
         exit 1
     fi
-    if [[ ! $codename =~ ^(buster|Focal|bullseye|Jammy)$ ]]; then
+    if [[ ! $codename =~ ^(buster|focal|bullseye|jammy)$ ]]; then
         echo "Your release ($codename) of $distribution is not supported."
         exit 1
     fi
