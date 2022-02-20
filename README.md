@@ -26,12 +26,29 @@ cd AutoPai ;\
 chmod +x *.sh ;\
 bash setup.sh
 ```
-### 0-touch mTCP/over/LTEHat setup
+### v1.9 0-touch mTCP/over/LTEHat setup
 ```
 git clone https://github.com/tim0n3/AutoPai.git ;\
 cd AutoPai ;\
 chmod +x *.sh ;\
 time sudo bash lteHatRootTCP.sh > ./stout-serial.log 2>&1
+```
+### v1.10-rc1 0-touch ubuntu setup
+```
+git clone https://github.com/tim0n3/AutoPai.git ;\
+cd AutoPai ;\
+chmod +x *.sh ;\
+screen -t pipinstalls ;\
+time pip3 install -r requirements.txt > ./stout-serial.log 2>&1 ;\
+```
+`crtl-a+d to detach the screen`
+#
+```
+tail -f ./stout-serial.log
+```
+real    25m29.391s
+user    78m24.459s
+sys     7m15.955s
 ```
 #### Tail the log
 ```

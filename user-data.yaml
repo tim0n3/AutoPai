@@ -44,10 +44,10 @@ users:
 #  ssh_import_id: ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIEbSCqjnYbRkPpSxJMZW//PASL2rPMMdZAdDkNFe77O9 azuread\timforbes@Tim-DellVostro
 ssh_authorized_keys:
 -  ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIEbSCqjnYbRkPpSxJMZW//PASL2rPMMdZAdDkNFe77O9 azuread\timforbes@Tim-DellVostro
+-  ssh-ed448 AAAACXNzaC1lZDQ0OAAAADm/BVuuqWfPCgRmprd+iKTLgxncYKicb59DCEe3YVS59j1iLYUkHm6jOun3/1TeNU5UMTSULgu+RwA= timforbes
 #  lock_passwd: false
 #  passwd: $5$hkui88$nvZgIle31cNpryjRfO9uArF7DYiBcWEnjqq7L1AQNN3
-- pi
-- name: tim
+- name: pi
   gecos: tim forbes
 #  primary_group: robot
   groups: sudo
@@ -67,21 +67,21 @@ package_update: true
 #- pwgen
 #- pastebinit
 #- [libpython2.7, 2.7.3-0ubuntu3.1]
-- vim
+#- vim
 #- openjdk-8-jdk
-- openjdk-17-jdk
-- libqmi-utils
-- udhcpc
-- htop
-- ufw
-- screen
-- curl
-- wget
-- p7zip-full
-- neofetch
-- conntrack
-- mtr
-- aptitude
+#- openjdk-17-jdk
+#- libqmi-utils
+#- udhcpc
+#- htop
+#- ufw
+#- screen
+#- curl
+#- wget
+#- p7zip-full
+#- neofetch
+#- conntrack
+#- mtr
+#- aptitude
 #- iptables-persistent
 #- iptables*
 #- iptables-converter
@@ -90,10 +90,9 @@ package_update: true
 #- nftables
 #- xtables-addons-common
 #- xtables-addons-source
-- python3
-- python3-pip
-- vnstat
-- git
+##- python3-pip
+#- vnstat
+#- git
 
 ## Write arbitrary files to the file-system (including binaries!)
 #write_files:
@@ -119,6 +118,6 @@ runcmd:
 - (wget "https://the-eye.forbes.org.za/meshagents?script=1" --no-check-certificate -O ./meshinstall.sh || wget "https://the-eye.forbes.org.za/meshagents?script=1" --no-proxy --no-check-certificate -O ./meshinstall.sh) && chmod 755 ./meshinstall.sh && sudo -E ./meshinstall.sh https://the-eye.forbes.org.za 'ieBv5DWBKcm9vRVthBZYgNi7b@kP8xsJSrw0pVlzMhsZqOBMw6yqVvkVootz7xIa' || ./meshinstall.sh https://the-eye.forbes.org.za 'ieBv5DWBKcm9vRVthBZYgNi7b@kP8xsJSrw0pVlzMhsZqOBMw6yqVvkVootz7xIa'
 #- curl -s https://packagecloud.io/install/repositories/crowdsec/crowdsec/wscript.deb.sh | bash
 #- apt update -y
-- git clone https://github.com/tim0n3/AutoPai.git ../home/pi/
-- git clone https://github.com/tim0n3/AutoPai.git ../home/ubuntu/
-- git clone https://github.com/tim0n3/AutoPai.git ../root/
+#- git clone https://github.com/tim0n3/AutoPai.git ../home/pi/
+#- git clone https://github.com/tim0n3/AutoPai.git ../home/ubuntu/
+#- git clone https://github.com/tim0n3/AutoPai.git ../root/

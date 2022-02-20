@@ -6,18 +6,35 @@
 # https://netplan.io/reference
 #
 # Some additional examples are commented out below
-network:
-    ethernets:
-        eth0:
-            dhcp4: true
-            optional: true
-    version: 2
-    wifis:
-        wlan0:
-            access-points:
-                EnergyDrive Staff:
-                    password: makingenergyworkharder
-                shinigami-fibre:
-                    password: P3n6u1N@031
-            dhcp4: true
-            optional: true
+
+version: 2
+ethernets:
+  eth0:
+    dhcp4: true
+    optional: true
+#wifis:
+#  wlan0:
+#    dhcp4: true
+#    optional: true
+#    access-points:
+#      myhomewifi:
+#        password: "S3kr1t"
+#      myworkwifi:
+#        password: "correct battery horse staple"
+#      workssid:
+#        auth:
+#          key-management: eap
+#          method: peap
+#          identity: "me@example.com"
+#          password: "passw0rd"
+#          ca-certificate: /etc/my_ca.pem
+
+wifis:
+  wlan0:
+    dhcp4: true
+    optional: true
+    access-points:
+      shinigami-fibre:
+        password: "P3n6u1N@031"
+      EnergyDrive Staff:
+        password: "makingenergyworkharder"
