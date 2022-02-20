@@ -5,8 +5,8 @@ echo "-- lteHat configuration commencing! --"
 echo "--------------------------------------"
 function _os_check() {
 	echo "Checking if using the correct distro:"
-	distribution=$(egrep '^(NAME)=' /etc/os-release)
-    codename=$( egrep '^(VERSION)=' /etc/os-release)
+	distribution=$(lsb_release -is)
+    codename=$(lsb_release -cs)
     if [[ ! $distribution =~ ^(Debian|Ubuntu)$ ]]; then
         echo "Your distribution ($distribution) is not supported. Swizzin requires Ubuntu or Debian."
         exit 1
