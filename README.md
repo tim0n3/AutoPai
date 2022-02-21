@@ -14,18 +14,6 @@ Copy the log4j file and create a folder in the app directory called logs (/home/
 Create a device in IoT core and wait until the end of the script to paste the x509-wrapped TLS certificate.
 ```
 
-### Single-line-Installation
-Run the command and follow the assistant:
-```
-wget https://raw.githubusercontent.com/tim0n3/AutoPai/master/setup.sh && bash setup.sh
-```
-### Manually clone and run the setup file directly
-```
-git clone https://github.com/tim0n3/AutoPai.git ;\
-cd AutoPai ;\
-chmod +x *.sh ;\
-bash setup.sh
-```
 ### v1.9 0-touch mTCP/over/LTEHat setup
 ```
 git clone https://github.com/tim0n3/AutoPai.git ;\
@@ -33,38 +21,27 @@ cd AutoPai ;\
 chmod +x *.sh ;\
 time sudo bash lteHatRootTCP.sh > ./stout-serial.log 2>&1
 ```
-
-```
 #### Tail the log
 ```
 cd /home/pi/AutoPai/ ;
 tail -f stout-serial.log
 ```
-### 0-touch mTCP/over/EtherNet
-```
-Comming soon:
-```
-### 0-touch RTU/over/232
-```
-Comming soon:
-```
-### 0-touch RTU/over/485
-```
-Comming soon:
 
 ### v1.10-rc1 0-touch ubuntu setup
 ```
 screen -t setup-script ;\
-git clone -b ubuntu-pi https://github.com/tim0n3/AutoPai.git ;\
+git clone https://github.com/tim0n3/AutoPai.git ;\
 cd AutoPai;\
 touch stout-setup.log ;\
 time sudo bash 1.10-rc1-ubuntu.sh  >> stout-setup.log 2>&1 
 ```
+
 `ctrl^ad` to detach the screen
 ### check script progress:
 ```
 tail -f ./stout-setup.log
 ```
+
 The Install + compilation of the python-wheels should take around 30mins depending on how much memory you have and whether you've overclocked or not. <br>
 ### Install time(s) on Pi4b 8GB @1.5Ghz on ubuntu 20.04.4 LTS:
 `
