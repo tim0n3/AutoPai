@@ -54,21 +54,23 @@ Comming soon:
 
 ### v1.10-rc1 0-touch ubuntu setup
 ```
+screen -t setup-script ;\
 git clone -b ubuntu-pi https://github.com/tim0n3/AutoPai.git ;\
-cd AutoPai ;\
-chmod +x *.sh ;\
-screen -t pipinstalls ;\
-time pip3 install -r requirements.txt > ./stout-serial.log 2>&1 ;\
+cd AutoPai;\
+touch stout-setup.log ;\
+time sudo bash 1.10-rc1-ubuntu.sh  >> stout-setup.log 2>&1 
+
+tail -f stout-setup.log
 ```
-`crtl-a+d` to detach the screen
-# check pip progress:
+`ctrl^ad` to detach the screen
+# check script progress:
 ```
-tail -f ./stout-serial.log
+tail -f ./stout-setup.log
 ```
 The Install + compilation of the python-wheels should take around 30mins depending on how much memory you have and whether you've overclocked or not. <br>
 ### Install time(s) on Pi4b 8GB @1.5Ghz on ubuntu 20.04.4 LTS:
 `
-real    25m29.391s
+real    50m29.391s
 `
 <br>
 `
