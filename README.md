@@ -40,7 +40,7 @@ time sudo bash 1.10-rc1-ubuntu.sh  >> stout-setup.log 2>&1
 ### check script progress:
 ```
 tail -f ./stout-setup.log
-
+```
 
 The Install + compilation of the python-wheels should take around 30mins depending on how much memory you have and whether you've overclocked or not. <br>
 ### Install time(s) on Pi4b 8GB @1.5Ghz on ubuntu 20.04.4 LTS:
