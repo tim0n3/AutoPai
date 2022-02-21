@@ -93,14 +93,12 @@ Installing -> crowdsec
 		-e screen \
 		-e curl \
 		-e wget \
-		-e p7zip* \
+		-e p7zip-* \
 		-e neofetch \
 		-e conntrack \
 		-e mtr \
 		-e aptitude \
-		-e iptables-persistent \
 		-e iptables* \
-		-e iptables-converter \
 		-e ipset \
 		-e netfilter-persistent \
 		-e nftables \
@@ -128,7 +126,7 @@ Installing -> paho-mqtt==1.5.1
 Installing -> psutil==5.9.0
 Installing -> google-cloud-pubsub==2.9.0
 "
-	runuser -l ubuntu -c "pip3 install -r /home/ubuntu/AutoPai/requirements.txt"
+	runuser -l ubuntu -c "pip3 install -r /home/ubuntu/AutoPai/depends/requirements.txt"
 
 }
 _rmm_setup() {
@@ -152,8 +150,8 @@ _modem_service_install() {
 	echo "--------------------------------------"
 	echo "--   SystemV service install        --"
 	echo "--------------------------------------"
-	runuser -u ubuntu sudo cp /home/ubuntu/AutoPai/datacollector.service /etc/systemd/system/datacollector.service ;
-	runuser -u ubuntu sudo cp /home/ubuntu/AutoPai/datauploader.service /etc/systemd/system/datauploader.service ;
+	runuser -u ubuntu sudo cp /home/ubuntu/AutoPai/depends/datacollector.service /etc/systemd/system/datacollector.service ;
+	runuser -u ubuntu sudo cp /home/ubuntu/AutoPai/depends/datauploader.service /etc/systemd/system/datauploader.service ;
 	systemctl enable datacollector ;
 	systemctl stop datacollector ;
 	systemctl enable datauploader ;
