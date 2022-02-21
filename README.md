@@ -59,8 +59,6 @@ git clone -b ubuntu-pi https://github.com/tim0n3/AutoPai.git ;\
 cd AutoPai;\
 touch stout-setup.log ;\
 time sudo bash 1.10-rc1-ubuntu.sh  >> stout-setup.log 2>&1 
-
-tail -f stout-setup.log
 ```
 `ctrl^ad` to detach the screen
 # check script progress:
