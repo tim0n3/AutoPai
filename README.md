@@ -26,12 +26,14 @@ cd AutoPai ;\
 chmod +x *.sh ;\
 bash setup.sh
 ```
-### 0-touch mTCP/over/LTEHat setup
+### v1.9 0-touch mTCP/over/LTEHat setup
 ```
 git clone https://github.com/tim0n3/AutoPai.git ;\
 cd AutoPai ;\
 chmod +x *.sh ;\
 time sudo bash lteHatRootTCP.sh > ./stout-serial.log 2>&1
+```
+
 ```
 #### Tail the log
 ```
@@ -49,7 +51,35 @@ Comming soon:
 ### 0-touch RTU/over/485
 ```
 Comming soon:
+
+### v1.10-rc1 0-touch ubuntu setup
 ```
+screen -t setup-script ;\
+git clone -b ubuntu-pi https://github.com/tim0n3/AutoPai.git ;\
+cd AutoPai;\
+touch stout-setup.log ;\
+time sudo bash 1.10-rc1-ubuntu.sh  >> stout-setup.log 2>&1 
+```
+`ctrl^ad` to detach the screen
+### check script progress:
+```
+tail -f ./stout-setup.log
+```
+The Install + compilation of the python-wheels should take around 30mins depending on how much memory you have and whether you've overclocked or not. <br>
+### Install time(s) on Pi4b 8GB @1.5Ghz on ubuntu 20.04.4 LTS:
+`
+real    50m29.391s
+`
+<br>
+`
+user    78m24.459s
+`
+<br>
+`
+sys     7m15.955s
+`
+<br>
+
 Once it ends, you can continue adding the certificate into IoT core and ensuring data is pushing into bigQuery
 
 ### I want to support you and the amazing work you're doing:
