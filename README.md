@@ -21,8 +21,6 @@ cd AutoPai ;\
 chmod +x *.sh ;\
 time sudo bash lteHatRootTCP.sh > ./stout-serial.log 2>&1
 ```
-
-```
 #### Tail the log
 ```
 cd /home/pi/AutoPai/ ;
