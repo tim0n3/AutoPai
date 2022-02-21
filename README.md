@@ -61,7 +61,7 @@ touch stout-setup.log ;\
 time sudo bash 1.10-rc1-ubuntu.sh  >> stout-setup.log 2>&1 
 ```
 `ctrl^ad` to detach the screen
-# check script progress:
+### check script progress:
 ```
 tail -f ./stout-setup.log
 ```
