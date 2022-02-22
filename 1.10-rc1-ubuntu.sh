@@ -146,6 +146,14 @@ _create_vdev_mapping() {
 EOF
 udevadm trigger
 }
+_static_ip() {
+	echo "configuring eth0 iface for Modbus TCP with ip 192.168.0.200\n"
+		cat <<EOF >> /etc/dhcpcd.conf
+			# define static profile
+			interface eth0
+			static ip_address=192.168.0.200/24
+EOF
+}
 _modem_service_install() {
 	echo "--------------------------------------"
 	echo "--   SystemV service install        --"
@@ -236,6 +244,7 @@ function _main() {
 	_os_check ;
 	_rmm_setup ;
 	_create_vdev_mapping ;
+	#_static_ip ; uncoment to use static IP on eth0 for rs232/485 installations
 	_updates_and_upgrades ;
 	_pkgs_cs_ips ;
 	#_swap_file # uncomment if you'd like a larger swapfile
