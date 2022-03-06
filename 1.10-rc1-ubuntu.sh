@@ -55,11 +55,10 @@ echo "--------------------------------------"
 	cp /etc/fstab /etc/fstab.bak
 	echo '/swap none swap sw 0 0' | tee -a /etc/fstab
 	cat /proc/sys/vm/swappiness
-	sysctl vm.swappiness=1
-	echo 'vm.swappiness=1' | tee -a /etc/sysctl.conf
-	cat /proc/sys/vm/vfs_cache_pressure
-	sysctl vm.vfs_cache_pressure=50
-	echo 'vm.vfs_cache_pressure=50' | tee -a /etc/sysctl.conf
+	mv /etc/sysctl.conf /etc/sysctl.conf.bak
+	cp /home/pi/AutoPai/kerneltweaks/sysctl.conf /etc/
+	chown root:root /etc/sysctl.conf
+	sysctl -p
 }
 _updates_and_upgrades() {
 	echo -e "\nInstalling and Updating Base System\n"
