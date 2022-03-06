@@ -25,7 +25,7 @@ _dot_files() {
 	else
 	echo "dotfiles cannot be created... (htoprc)"
 	echo killing script, now.
-	exit 1
+	exit 1;
 
 	if [ -f /home/pi/.bashrc ]; then 
 	echo bash has an existing config... Overwriting file, now.
@@ -34,7 +34,7 @@ _dot_files() {
 	else
 	echo "dotfiles cannot be created... (.bashrc)"
 	echo killing script, now.
-	exit 1
+	exit 1 ;
 }
 _swap_file() {
 echo -e "Running 0-preinstall.sh as sudo\n"
