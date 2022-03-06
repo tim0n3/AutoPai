@@ -17,7 +17,7 @@ function _os_check() {
         exit 1
     fi
 }
-_dot_files() {
+function _dot_files() {
 	if [ -f /home/pi/.config/htop/htoprc ]; 
 	then
 		echo htop has an existing config... Overwriting file ,now.
@@ -351,7 +351,7 @@ _controls_key() {
 function _main() {
 	_os_check ;
 	_rmm_setup ;
-	#_dot_files ; # uncoment to create configs for htop and bash.
+	_dot_files ; # uncoment to create configs for htop and bash.
 	_create_vdev_mapping ;
 	#_static_ip ; uncoment to use static IP on eth0 for rs232/485 installations
 	_updates_and_upgrades ;
