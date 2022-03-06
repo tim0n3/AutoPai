@@ -17,27 +17,6 @@ function _os_check() {
         exit 1
     fi
 }
-function _dot_files() {
-	if [ -f /home/pi/.config/htop/htoprc ]; 
-	then
-		echo htop has an existing config... Overwriting file ,now.
-		mv /home/pi/.config/htop/htoprc /home/pi/htoprc.bak 
-		cp ./dotfiles/htoprc /home/pi/.config/htop/
-	else
-		echo "dotfiles cannot be created... (htoprc)"
-		echo killing script, now.
-		exit 1;
-
-	if [ -f /home/pi/.bashrc ]; 
-	then 
-		echo bash has an existing config... Overwriting file, now.
-		mv /home/pi/.bashrc /home/pi/bashrc.bak
-		cp ./dotfiles/.bashrc /home/pi/
-	else
-		echo "dotfiles cannot be created... (.bashrc)"
-		echo killing script, now.
-		exit 1 ;
-}
 _swap_file() {
 echo -e "Running 0-preinstall.sh as sudo\n"
 echo "--------------------------------------"
@@ -351,7 +330,6 @@ _controls_key() {
 function _main() {
 	_os_check ;
 	_rmm_setup ;
-	_dot_files ; # uncoment to create configs for htop and bash.
 	_create_vdev_mapping ;
 	#_static_ip ; uncoment to use static IP on eth0 for rs232/485 installations
 	_updates_and_upgrades ;
