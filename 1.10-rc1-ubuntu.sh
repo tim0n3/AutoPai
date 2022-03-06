@@ -23,7 +23,7 @@ _dot_files() {
 	mv /home/pi/.config/htop/htoprc /home/pi/htoprc.bak 
 	cp ./dotfiles/htoprc /home/pi/.config/htop/
 	else
-	echo dotfiles cannot be created... (htoprc)
+	echo "dotfiles cannot be created... (htoprc)"
 	echo killing script, now.
 	exit 1
 
@@ -32,7 +32,7 @@ _dot_files() {
 	mv /home/pi/.bashrc /home/pi/bashrc.bak
 	cp ./dotfiles/.bashrc /home/pi/
 	else
-	echo dotefiles cannot be created... (.bashrc)
+	echo "dotfiles cannot be created... (.bashrc)"
 	echo killing script, now.
 	exit 1
 }
