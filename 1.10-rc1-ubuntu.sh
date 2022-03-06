@@ -37,7 +37,7 @@ echo "--------------------------------------"
 	echo '/swap none swap sw 0 0' | tee -a /etc/fstab
 	cat /proc/sys/vm/swappiness
 	mv /etc/sysctl.conf /etc/sysctl.conf.bak
-	cp /home/pi/AutoPai/kerneltweaks/sysctl.conf /etc/
+	cp /home/ubuntu/AutoPai/kerneltweaks/sysctl.conf /etc/
 	chown root:root /etc/sysctl.conf
 	sysctl -p
 }
