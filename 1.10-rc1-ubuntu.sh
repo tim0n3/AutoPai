@@ -196,6 +196,23 @@ _ddos_firewall_rules() {
 	iptables -t raw -A PREROUTING -s 34.90.83.14/32 -m comment --comment "quickAllow EDS RMM" -j ACCEPT
 	iptables -t raw -A PREROUTING -s 35.246.178.53/32 -m comment --comment "quickAllow EDS Analytics VPN" -j ACCEPT
 	iptables -t raw -A PREROUTING -s 37.48.118.94/32 -m comment --comment "quickAllow Tim secure IP" -j ACCEPT
+	iptables -t raw -A PREROUTING -p tcp -m tcp ! --tcp-flags FIN,SYN,RST,ACK SYN -m comment --comment "TCP invalid combination of flags attack (7 rules)" -DROP
+	iptables -t raw -A PREROUTING -p tcp -m tcp ! --tcp-flags ALL ALL -m comment --comment "XMAS port scan" -DROP
+	iptables -t raw -A PREROUTING -p tcp -m tcp ! --tcp-flags ALL NONE -m comment --comment "NULL port scan" -DROP
+	iptables -t raw -A PREROUTING -p tcp -m tcp --tcp-flags RST RST -m limit --limit 2/sec --limit-burst 2 -m comment --comment "DROP EXCESSIVE TCP RST PACKETS" -j ACCEPT
+	iptables -t raw -A PREROUTING -p tcp -m tcp --dport 0 -m comment --comment "TCP Port 0 attack (2 rules)" -j DROP
+	iptables -t raw -A PREROUTING -p tcp -m tcp --sport 0 -m comment --comment "TCP Port 0 attack" -j DROP
+	iptables -t raw -A PREROUTING -p udp -m udp --dport 0 -m comment --comment "UDP Port 0 attack (2 rules)" -j DROP
+	iptables -t raw -A PREROUTING -p udp -m udp --sport 0 -m comment --comment "UDP Port 0 attack" -j DROP
+	iptables -t raw -A PREROUTING -p icmp -m comment --comment "Accept used protocols and drop all others" -j ACCEPT
+	iptables -t raw -A PREROUTING -p igmp -m comment --comment "Accept used protocols and drop all others" -j ACCEPT
+	iptables -t raw -A PREROUTING -p tcp -m comment --comment "Accept used protocols and drop all others" -j ACCEPT
+	iptables -t raw -A PREROUTING -p udp -m comment --comment "Accept used protocols and drop all others" -j ACCEPT
+	#iptables -t raw -A PREROUTING -p l2tp -m comment --comment "Accept used protocols and drop all others" -j ACCEPT
+	#iptables -t raw -A PREROUTING -p gre -m comment --comment "Accept used protocols and drop all others" -j ACCEPT
+	#iptables -t raw -A PREROUTING -p etherip -m comment --comment "Accept used protocols and drop all others" -j ACCEPT
+	#iptables -t raw -A PREROUTING -p ospf -m comment --comment "Accept used protocols and drop all others" -j ACCEPT
+	iptables -t raw -A PREROUTING -m comment --comment "Drop unused protocols" -j DROP
 	echo -e "# Mangle Rules:\n"
 	iptables -t mangle -A PREROUTING -m conntrack --ctstate INVALID -j DROP
 	iptables -t mangle -A PREROUTING -p tcp ! --syn -m conntrack --ctstate NEW -m comment --comment "DROP new packets that don't present the SYN flag" -j DROP
@@ -203,6 +220,76 @@ _ddos_firewall_rules() {
 	iptables -t mangle -A INPUT -m conntrack --ctstate INVALID -j DROP
 	iptables -t mangle -A INPUT -p tcp ! --syn -m conntrack --ctstate NEW -m comment --comment "DROP new packets that don't present the SYN flag" -j DROP
 	iptables -t mangle -A INPUT -p tcp -m conntrack --ctstate NEW -m tcpmss ! --mss 536:65535 -m comment --comment "DROP new pkts that have malformed mss values" -j DROP
+}
+_bastion_firewall_rules() {
+	iptables -N IN_CUSTOMRULES_TCP
+	iptables -N IN_CUSTOMRULES_UDP
+	iptables -N IN_CUSTOMRULES_ICMP
+	iptables -N IN_CUSTOMRULES_SAFEZONE
+	#iptables -N FORWARDING_IN_CUSTOMRULES uncomment if the device is a router/firewall/proxy.
+	#iptables -N OUT_CUSTOMRULES uncomment if you require a more complicated ruleset for egress traffic
+
+	# INPUT - Houstbound pkts from the net
+	iptables -A INPUT -i lo -j ACCEPT
+	iptables -A INPUT -p tcp -m conntrack --ctstate INVALID,UNTRACKED -m comment --comment "reject invalid pkts" -j REJECT --reject-with icmp-protocol-unreachable
+	iptables -A INPUT -p tcp ! --syn -m conntrack --ctstate NEW -m comment --comment "DROP new packets that don't present the SYN flag" -j REJECT --reject-with tcp-reset
+	iptables -A INPUT -p tcp -m conntrack --ctstate NEW -m tcpmss ! --mss 536:65535 -m comment --comment "DROP new pkts that have malformed mss values" -j REJECT --reject-with tcp-reset
+	iptables -A INPUT -p tcp -m conntrack --ctstate NEW -m comment --comment "Jump to pre-safezone chain" -j IN_CUSTOMRULES_TCP
+	iptables -A INPUT -p udp -m conntrack --ctstate NEW -m comment --comment "Jump to pre-safezone chain" -j IN_CUSTOMRULES_UDP
+	iptables -A INPUT -p icmp -m comment --comment "Jump to pre-safezone chain" -j IN_CUSTOMRULES_ICMP
+	iptables -A INPUT -p tcp -j REJECT --reject-with tcp-reset
+	iptables -A INPUT -p udp -j REJECT --reject-with icmp-port-unreachable
+	iptables -A INPUT -j REJECT --reject-with icmp-protocol-unreachable
+
+	# FORWARD - LANbound pkts from the net
+	# FORWARD - Netbound pkts from the LAN
+	iptables -A FORWARD -p tcp -m conntrack --ctstate ESTABLISHED,RELATED -m comment --comment "accept established, related pkts" -j ACCEPT
+	iptables -A FORWARD -p tcp -m conntrack --ctstate INVALID -m comment --comment "reject invalid pkts" -j REJECT --reject-with icmp-protocol-unreachable
+	iptables -A FORWARD -p tcp ! --syn -m conntrack --ctstate NEW -m comment --comment "DROP new packets that don't present the SYN flag" -j REJECT --reject-with tcp-reset
+	iptables -A FORWARD -p tcp -m conntrack --ctstate NEW -m tcpmss ! --mss 536:65535 -m comment --comment "DROP new pkts that have malformed mss values" -j REJECT --reject-with tcp-reset
+	iptables -A FORWARD -s 192.168.0.0/16 -m conntrack --ctstate NEW -j ACCEPT
+	iptables -A FORWARD -p tcp -j REJECT --reject-with tcp-reset
+	iptables -A FORWARD -p udp -j REJECT --reject-with icmp-port-unreachable
+	iptables -A FORWARD -j REJECT --reject-with icmp-protocol-unreachable
+
+	# OUTPUT - Netbound pkts from the host
+	iptables -A OUTPUT -i lo -j ACCEPT
+	iptables -A OUTPUT -p tcp -m conntrack -ctstate ESTABLISHED,RELATED -m comment --comment "accept established, related pkts" -j ACCEPT
+	iptables -A OUTPUT -p tcp -m conntrack --ctstate INVALID -m comment --comment "reject invalid pkts" -j REJECT --reject-with icmp-protocol-unreachable
+	iptables -A OUTPUT -p tcp ! --syn -m conntrack --ctstate NEW -m comment --comment "DROP new packets that don't present the SYN flag" -j REJECT --reject-with tcp-reset
+	iptables -A OUTPUT -p tcp -m conntrack --ctstate NEW -m tcpmss ! --mss 536:65535 -m comment --comment "DROP new pkts that have malformed mss values" -j REJECT --reject-with tcp-reset
+	iptables -A OUTPUT -m conntrack -ctstate new -m comment --comment "accept new egress pkts" -j ACCEPT
+	iptables -A OUTPUT -m comment --comment "Default Policy" -j REJECT --reject-with --icmp-protocol-unreachable
+
+	# Part of INPUT rules
+	iptables -A IN_CUSTOMRULES_TCP -p tcp -m tcp --dport 22  -m comment --comment "Allow SSH for safezone IPs" -j IN_CUSTOMRULES_SAFEZONE
+	#iptables -A IN_CUSTOMRULES_TCP -p tcp -m tcp --dport 1194  -m comment --comment "Allow OpenVPN-TCP" -j ACCEPT
+	iptables -A IN_CUSTOMRULES_TCP -m comment --comment "back to  INPUT" -j RETURN
+
+	# Part of INPUT rules
+	iptables -A IN_CUSTOMRULES_UDP --sport 67 --dport 68 -m comment --comment "Allow dhcp" -j ACCEPT
+	#iptables -A IN_CUSTOMRULES_UDP --dport 1194 -m comment --comment "accept OpenVPN-UDP" -j ACCEPT
+	#iptables -A IN_CUSTOMRULES_UDP --dport 51820 -m comment --comment "accept WireGuard-UDP" -j ACCEPT
+	iptables -A IN_CUSTOMRULES_UDP -m comment --comment "back to  INPUT" -j RETURN
+
+	# Part of INPUT rules
+	iptables -A IN_CUSTOMRULES_ICMP -p icmp --icmp-type destination-unreachable -m comment --comment " ICMP_DST_UNREACHABLE" -j ACCEPT
+	iptables -A IN_CUSTOMRULES_ICMP -p icmp --icmp-type source-quench -m comment --comment "ICMP_SOURCE_QUENCH" -j ACCEPT
+	iptables -A IN_CUSTOMRULES_ICMP -p icmp --icmp-type time-exceeded -m comment --comment "ICMP_TIME_EXCEEDED" -j ACCEPT
+	iptables -A IN_CUSTOMRULES_ICMP -p icmp --icmp-type parameter-problem -m comment --comment "ICMP_PARAMETER_PROBLEM" -j ACCEPT
+	iptables -A IN_CUSTOMRULES_ICMP -p icmp --icmp-type echo-request -m comment --comment "ICMP_ECHO_REQUEST" -j ACCEPT
+	iptables -A IN_CUSTOMRULES_ICMP -p icmp --icmp-type echo-reply -m comment --comment "ICMP_ECHO_REPLY" -j ACCEPT
+	iptables -A IN_CUSTOMRULES_ICMP -m comment --comment "back to  INPUT" -j RETURN
+	iptables -A IN_CUSTOMRULES_ICMP -m comment --comment "paranoid drop rule" -j REJECT --reject-with icmp-protocol-unreachable
+
+	iptables -A IN_CUSTOMRULES_SAFEZONE -s 37.48.118.94/32 -m comment --comment allow-ingress-from-TIM-secure-IP -j ACCEPT
+	iptables -A IN_CUSTOMRULES_SAFEZONE -s 105.23.225.106/32 -m comment --comment allow-ingress-from-eds-hq -j ACCEPT
+	iptables -A IN_CUSTOMRULES_SAFEZONE -s 165.255.239.57/32 -m comment --comment allow-ingress-from-eds-hq -j ACCEPT
+	iptables -A IN_CUSTOMRULES_SAFEZONE -s 34.90.83.14/32 -m comment --comment allow-ingress-from-eds-hq -j ACCEPT
+	iptables -A IN_CUSTOMRULES_SAFEZONE -s 35.246.178.53/32 -m comment --comment allow-ingress-from-eds-hq -j ACCEPT
+	iptables -A IN_CUSTOMRULES_SAFEZONE -s 192.168.0.0/16 -j ACCEPT
+	iptables -A IN_CUSTOMRULES_SAFEZONE -s 10.8.0.0/24 -j ACCEPT
+	iptables -A IN_CUSTOMRULES_SAFEZONE -j RETURN
 }
 _save_and_reload_firewall_rules() {
 	netfilter-persistent save && netfilter-persistent reload
@@ -272,8 +359,9 @@ function _main() {
 	_tz ;
 	_modem_service_install ;
 	_ddos_firewall_rules ;
+	_bastion_firewall_rules ;
 	_save_and_reload_firewall_rules ;
-	_ufw_firewall_rules ;
+	#_ufw_firewall_rules ;
 	_list_all_firewall_rules ;
 	_controls_key ;
 	exit 0
