@@ -1,12 +1,14 @@
 Description=Data Collection Service
 
 [Service]
-ExecStart=/usr/bin/java -jar /home/ubuntu/app/DataCollector.jar
-WorkingDirectory=/home/ubuntu/app
+ExecStart=/usr/bin/java -jar /home/pi/app/DataCollector.jar
+WorkingDirectory=/home/pi/app
 StandardOutput=syslog
 StandardError=syslog
-User=ubuntu
+User=pi
 SyslogIdentifier=data_collector
+Restart=on-failure
+RestartSec=5s
 
 [Install]
 WantedBy=multi-user.target
