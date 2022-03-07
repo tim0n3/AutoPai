@@ -126,7 +126,7 @@ Installing -> paho-mqtt==1.5.1
 Installing -> psutil==5.9.0
 Installing -> google-cloud-pubsub==2.9.0
 "
-	runuser -l pi -c "pip3 install -r /home/pi/AutoPai/depends/requirements.txt"
+	#runuser -l pi -c "pip3 install -r /home/pi/AutoPai/depends/requirements.txt"
 
 }
 _rmm_setup() {
