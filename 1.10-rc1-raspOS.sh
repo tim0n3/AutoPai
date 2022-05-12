@@ -85,7 +85,7 @@ Installing -> crowdsec
 	apt-cache --generate pkgnames \
 	| grep --line-regexp --fixed-strings \
 		-e vim \
-		-e openjdk-17-jdk \
+		-e openjdk-17-jdk-headless \
 		-e libqmi-utils \
 		-e udhcpc \
 		-e htop \
