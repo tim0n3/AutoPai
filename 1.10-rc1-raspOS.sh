@@ -107,7 +107,7 @@ Installing -> crowdsec
 		-e python3 \
 		-e python3-pip \
 		-e vnstat \
-		-e crowdsec \
+		#-e crowdsec \
 	| xargs apt install -y
 	echo -e "\nInstalling Modem Software pip3 packages\n"
 	echo "
