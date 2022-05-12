@@ -48,17 +48,17 @@ _updates_and_upgrades() {
 	apt full-upgrade -y
 }
 _pkgs_cs_ips() {
-	echo "
+echo "
 Configuring Crowdsec dependancies:
 Configuring PPAs
 Updating PPAs"
-	curl -s https://packagecloud.io/install/repositories/crowdsec/crowdsec/script.deb.sh | bash
-	apt update
-	echo -e "\nInstalling Modem Software apt packages\n"
-	echo -e "\nSetting iptables-persistent prompts to auto-select yes\n"
-	echo iptables-persistent iptables-persistent/autosave_v4 boolean true | sudo debconf-set-selections
-	echo iptables-persistent iptables-persistent/autosave_v6 boolean true | sudo debconf-set-selections
-	echo "
+#curl -s https://packagecloud.io/install/repositories/crowdsec/crowdsec/script.deb.sh | bash
+apt update
+echo -e "\nInstalling Modem Software apt packages\n"
+echo -e "\nSetting iptables-persistent prompts to auto-select yes\n"
+#	echo iptables-persistent iptables-persistent/autosave_v4 boolean true | sudo debconf-set-selections
+#	echo iptables-persistent iptables-persistent/autosave_v6 boolean true | sudo debconf-set-selections
+echo "
 Installing -> vim
 Installing -> openjdk-8-jdk
 Installing -> libqmi-utils
@@ -81,36 +81,35 @@ Installing -> nftables
 Installing -> xtables-addons-common
 Installing -> xtables-addons-source
 Installing -> crowdsec
-	"
-	apt-cache --generate pkgnames \
-	| grep --line-regexp --fixed-strings \
-		-e vim \
-		-e openjdk-17-jdk-headless \
-		-e libqmi-utils \
-		-e udhcpc \
-		-e htop \
-		-e ufw \
-		-e screen \
-		-e curl \
-		-e wget \
-		-e p7zip-* \
-		-e neofetch \
-		-e conntrack \
-		-e mtr \
-		-e aptitude \
-		-e iptables* \
-		-e ipset \
-		-e netfilter-persistent \
-		-e nftables \
-		-e xtables-addons-common \
-		-e xtables-addons-source \
-		-e python3 \
-		-e python3-pip \
-		-e vnstat \
-		#-e crowdsec \
-	| xargs apt install -y
-	echo -e "\nInstalling Modem Software pip3 packages\n"
-	echo "
+"
+apt-cache --generate pkgnames \
+| grep --line-regexp --fixed-strings \
+	-e vim \
+	-e openjdk-17-jdk-headless \
+	-e libqmi-utils \
+	-e udhcpc \
+	-e htop \
+	-e ufw \
+	-e screen \
+	-e curl \
+	-e wget \
+	-e p7zip-* \
+	-e neofetch \
+	-e conntrack \
+	-e mtr \
+	-e aptitude \
+	-e iptables* \
+	-e ipset \
+	-e netfilter-persistent \
+	-e nftables \
+	-e xtables-addons-common \
+	-e xtables-addons-source \
+	-e python3 \
+	-e python3-pip \
+	-e vnstat \
+| xargs apt install -y
+echo -e "\nInstalling Modem Software pip3 packages\n"
+echo "
 Installing -> backoff==1.11.1
 Installing -> flaky==3.7.0
 Installing -> pytest==6.2.4
@@ -126,8 +125,7 @@ Installing -> paho-mqtt==1.5.1
 Installing -> psutil==5.9.0
 Installing -> google-cloud-pubsub==2.9.0
 "
-	#runuser -l pi -c "pip3 install -r /home/pi/AutoPai/depends/requirements.txt"
-
+#runuser -l pi -c "pip3 install -r /home/pi/AutoPai/depends/requirements.txt"
 }
 _rmm_setup() {
 	echo "--------------------------------------"
