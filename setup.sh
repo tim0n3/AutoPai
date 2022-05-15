@@ -18,7 +18,7 @@ function _main() {
 
     function _run_setup() {
         touch /home/pi/AutoPai/stout-setup.log ;\
-        time sudo bash /home/pi/AutoPai/1.10-rc1-raspOS.sh  >> stout-setup.log 2>&1 
+        time sudo bash /home/pi/AutoPai/raspOS.sh  >> stout-setup.log 2>&1 
     }
 _os_check;
 _run_setup;
