@@ -6,18 +6,18 @@ function _main() {
 	    # Borrowing this check from https://github.com/swizzin/swizzin
 	    distribution=$(lsb_release -is)
         codename=$(lsb_release -cs)
-        if [[ ! $distribution =~ ^(Debian)$ ]]; then
+        if [[ ! $distribution =~ ^(Ubuntu)$ ]]; then
             echo "Your distribution ($distribution) is not supported. This script requires Debian."
             exit 1
         fi
-        if [[ ! $codename =~ ^(buster|bullseye)$ ]]; then
+        if [[ ! $codename =~ ^(focal|fammy)$ ]]; then
             echo "Your release ($codename) of $distribution is not supported."
             exit 1
         fi
     }
 
     function _run_setup() {
-        if [[  $distribution =~ ^(Debian)$ ]]; then
+        if [[  $distribution =~ ^(Ubuntu)$ ]]; then
             echo "Your release ($codename) of $distribution is not supported."
             touch /home/pi/AutoPai/stout-setup.log ;\
             time sudo bash /home/pi/AutoPai/raspOS.sh  >> stout-setup.log 2>&1 
