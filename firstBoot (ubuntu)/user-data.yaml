@@ -68,8 +68,7 @@ package_update: true
 #- pastebinit
 #- [libpython2.7, 2.7.3-0ubuntu3.1]
 #- vim
-#- openjdk-8-jdk
-#- openjdk-17-jdk
+#- openjdk-17-jdk-headless
 #- libqmi-utils
 #- udhcpc
 #- htop
