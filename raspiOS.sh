@@ -125,6 +125,8 @@ EOF
 		echo "--------------------------------------"
 		echo "--   SystemV service install        --"
 		echo "--------------------------------------"
+		runuser -u pi cp bin/python_3.9_6b_raspbian.zip /home/pi/;
+		runuser -u pi unzip python_3.9_6b_raspbian.zip ;
 		runuser -u pi sudo cp /home/pi/AutoPai/depends/datacollector.service /etc/systemd/system/datacollector.service ;
 		runuser -u pi sudo cp /home/pi/AutoPai/depends/datauploader.service /etc/systemd/system/datauploader.service ;
 		systemctl enable datacollector ;
