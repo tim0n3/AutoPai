@@ -121,6 +121,21 @@ EOF
 				static ip_address=192.168.0.200/24
 EOF
 	}
+	_fetch_latest_software() {
+		# Install github ssh=key and bypass check for cloning over ssh
+		cp dotfiles/deployer /home/pi/.ssh/ ;
+		mv /home/pi/.ssh/deployer /home/pi/.ssh/id_rsa ;
+		sudo chown pi:pi -R /home/pi/.ssh/ ;
+		chmod 400 /home/pi/.ssh/id_rsa ;
+		cp dotfiles/config /home/pi/.ssh/ ;
+		chown pi:pi -R /home/pi/.ssh/ ;
+		# Clone latest build for the modem software arm64 version and copy, move into the app folder and take ownership as user pi 
+		runuser -u pi git clone git@github.com:epicdev-za/DataServices.git ;
+		cp -R DataServices /home/pi/ ;
+		chown pi:pi -R /home/pi/DataServices ;
+		runuser -u pi cp /home/pi/DataServices /home/pi/app ;
+
+	}
 	_modem_service_install() {
 		echo "--------------------------------------"
 		echo "--   SystemV service install        --"
@@ -213,6 +228,7 @@ EOF
 	_pkgs_cs_ips ;
 	#_swap_file # uncomment if you'd like a larger swapfile
 	_tz ;
+	_fetch_latest_software ;
 	_modem_service_install ;
 	#_ddos_firewall_rules ; # Planned obsolescence in favour rules.v4 file format
 	_setup_firewall ;
