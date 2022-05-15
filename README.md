@@ -24,10 +24,10 @@ time sudo bash lteHatRootTCP.sh > ./stout-serial.log 2>&1
 #### Tail the log
 ```
 cd /home/pi/AutoPai/ ;
-tail -f stout-serial.log
+tail -f stout-serial.logs
 ```
 
-### v1.10-rc1 0-touch ubuntu setup
+### v1.10-rc1 0-touch RaspberryPiOS 64-bit setup
 ```
 screen -t setup-script ;\
 git clone https://github.com/tim0n3/AutoPai.git ;\

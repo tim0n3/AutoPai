@@ -5,20 +5,6 @@ function _main() {
 	echo "--------------------------------------"
 	echo "-- lteHat configuration commencing! --"
 	echo "--------------------------------------"
-	function _os_check() {
-		echo "Checking if using the correct distro:"
-		# Borrowing this check from https://github.com/swizzin/swizzin
-		distribution=$(lsb_release -is)
-		codename=$(lsb_release -cs)
-		if [[ ! $distribution =~ ^(Debian|Ubuntu)$ ]]; then
-			echo "Your distribution ($distribution) is not supported. This script requires Ubuntu or Debian."
-			exit 1
-		fi
-		if [[ ! $codename =~ ^(buster|focal|bullseye|jammy)$ ]]; then
-			echo "Your release ($codename) of $distribution is not supported."
-			exit 1
-		fi
-	}
 	_swap_file() {
 	echo -e "Running 0-preinstall.sh as sudo\n"
 	echo "--------------------------------------"
@@ -62,7 +48,7 @@ function _main() {
 	#	echo iptables-persistent iptables-persistent/autosave_v6 boolean true | sudo debconf-set-selections
 	echo "
 	Installing -> vim
-	Installing -> openjdk-8-jdk
+	Installing -> openjdk-17-jdk
 	Installing -> libqmi-utils
 	Installing -> udhcpc
 	Installing -> htop
@@ -109,26 +95,7 @@ function _main() {
 		-e python3 \
 		-e python3-pip \
 		-e vnstat \
-	| xargs apt install -y
-	echo -e "\nInstalling Modem Software pip3 packages\n"
-	echo "
-	Installing -> backoff==1.11.1
-	Installing -> flaky==3.7.0
-	Installing -> pytest==6.2.4
-	Installing -> cryptography==36.0.1
-	Installing -> google-api-python-client==2.34.0
-	Installing -> google-auth-httplib2==0.1.0
-	Installing -> google-auth==2.3.3
-	Installing -> google-cloud-pubsub==2.9.0
-	Installing -> google-cloud-iot==2.3.0
-	Installing -> grpc-google-iam-v1==0.12.3
-	Installing -> pyjwt==2.3.0
-	Installing -> paho-mqtt==1.5.1
-	Installing -> psutil==5.9.0
-	Installing -> google-cloud-pubsub==2.9.0
-	"
-	#runuser -l pi -c "pip3 install -r /home/pi/AutoPai/depends/requirements.txt"
-	}
+| xargs apt install -y
 	_rmm_setup() {
 		echo "--------------------------------------"
 		echo "--       Adding this device         --"
