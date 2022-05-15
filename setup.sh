@@ -10,7 +10,7 @@ function _main() {
             echo "Your distribution ($distribution) is not supported. This script requires Debian."
             exit 1
         fi
-        if [[ ! $codename =~ ^(focal|fammy)$ ]]; then
+        if [[ ! $codename =~ ^(focal|jammy)$ ]]; then
             echo "Your release ($codename) of $distribution is not supported."
             exit 1
         fi
