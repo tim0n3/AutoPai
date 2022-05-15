@@ -20,7 +20,7 @@ function _main() {
         if [[  $distribution =~ ^(Ubuntu)$ ]]; then
             echo "Your release ($codename) of $distribution is not supported."
             touch /home/pi/AutoPai/stout-setup.log ;\
-            time sudo bash /home/pi/AutoPai/raspOS.sh  >> stout-setup.log 2>&1 
+            time sudo bash /home/pi/AutoPai/ubOS.sh  >> stout-setup.log 2>&1 
             exit 0
         fi
     }
