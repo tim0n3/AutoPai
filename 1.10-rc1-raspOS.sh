@@ -107,9 +107,9 @@ function _main() {
 	_create_vdev_mapping() {
 		echo -e 'creating virtual device map for usb to serial converters \n'
 		cat <<EOF >> /etc/udev/rules.d/99-com.rules
-		SUBSYSTEM=="tty", ATTRS{idVendor}=="1a86", ATTRS{idProduct}=="7523", SYMLINK+="ttyUSB.EDS"
-		SUBSYSTEM=="tty", ATTRS{idProduct}=="2303", ATTRS{idVendor}=="067b", SYMLINK+="ttyUSB.EDS"
-		SUBSYSTEM=="tty", ATTRS{idProduct}=="6001", ATTRS{idVendor}=="0403", SYMLINK+="ttyUSB.EDS"
+			SUBSYSTEM=="tty", ATTRS{idVendor}=="1a86", ATTRS{idProduct}=="7523", SYMLINK+="ttyUSB.EDS"
+			SUBSYSTEM=="tty", ATTRS{idProduct}=="2303", ATTRS{idVendor}=="067b", SYMLINK+="ttyUSB.EDS"
+			SUBSYSTEM=="tty", ATTRS{idProduct}=="6001", ATTRS{idVendor}=="0403", SYMLINK+="ttyUSB.EDS"
 EOF
 	udevadm trigger
 	}
@@ -219,10 +219,9 @@ EOF
 	#_swap_file # uncomment if you'd like a larger swapfile
 	_tz ;
 	_modem_service_install ;
-	_ddos_firewall_rules ;
-	_bastion_firewall_rules ;
+	#_ddos_firewall_rules ;
 	_save_and_reload_firewall_rules ;
-	_ufw_firewall_rules ;
+	#_ufw_firewall_rules ;
 	_list_all_firewall_rules ;
 	_controls_key ;
 	exit 0

@@ -1,0 +1,126 @@
+*filter
+# Allow all outgoing, but drop incoming and forwarding packets by default
+:INPUT DROP [0:0]
+:FORWARD DROP [0:0]
+:OUTPUT ACCEPT [0:0]
+
+# Custom per-protocol chains
+:UDP - [0:0]
+:TCP - [0:0]
+:ICMP - [0:0]
+
+# Acceptable UDP traffic
+-A UDP -i lo -s 127.0.0.0/8 -p udp -m udp --dport 53 -j ACCEPT
+-A UDP -s 192.168.0.0/16 -p udp -m udp --dport 53 -j ACCEPT
+-A UDP -p udp --dport 67:68 --sport 67:68 -j ACCEPT
+
+# Acceptable TCP traffic
+-A TCP -p tcp --dport 22 -s 37.48.118.94/32 -j ACCEPT
+-A TCP -p tcp --dport 22 -s 34.91.119.101/32 -j ACCEPT
+-A TCP -p tcp --dport 22 -s 34.90.83.14/32 -j ACCEPT
+-A TCP -p tcp --dport 22 -s 105.23.225.106/32 -j ACCEPT
+-A TCP -p tcp --dport 22 -s 37.48.118.94/32 -j ACCEPT
+-A TCP -p tcp --dport 22 -s 192.168.0.0/16 -j ACCEPT
+-A TCP -p tcp --dport 502 -s 192.168.0.0/16 -j ACCEPT
+-A TCP -i eth0 -p tcp --dport 22 -s 169.254.0.0/16 -j ACCEPT
+-A TCP -i lo -s 127.0.0.0/8 -p tcp -m tcp --dport 53 -j ACCEPT
+
+# Acceptable ICMP traffic
+-A ICMP -p icmp -m icmp --icmp-type 11 -m comment --comment ICMP_TIME_EXCEEDED -j ACCEPT
+-A ICMP -p icmp -m icmp --icmp-type 8 -m comment --comment ICMP_ECHO_REQUEST -j ACCEPT
+-A ICMP -p icmp -m icmp --icmp-type 0 -m comment --comment ICMP_ECHO_REPLY -j ACCEPT
+-A ICMP -m comment --comment "back to  INPUT" -j RETURN
+-A ICMP -m comment --comment "paranoid drop rule" -j REJECT --reject-with icmp-proto-unreachable
+
+# Boilerplate acceptance policy
+-A INPUT -m conntrack --ctstate ESTABLISHED,RELATED -j ACCEPT
+-A INPUT -i lo -j ACCEPT
+
+# Drop invalid packets
+-A INPUT -p tcp -m conntrack --ctstate INVALID -j REJECT --reject-with tcp-reset
+-A INPUT -m conntrack --ctstate INVALID -j REJECT --reject-with icmp-port-unreachable
+
+# Pass traffic to protocol-specific chains
+## Only allow new connections (established and related should already be handled)
+## For TCP, additionally only allow new SYN packets since that is the only valid
+## method for establishing a new TCP connection
+-A INPUT -p udp -m conntrack --ctstate NEW -j UDP
+-A INPUT -p tcp --syn -m conntrack --ctstate NEW -j TCP
+-A INPUT -p icmp -m conntrack --ctstate NEW -j ICMP
+
+# Reject anything that's fallen through to this point
+## Try to be protocol-specific w/ rejection message
+-A INPUT -p udp -j REJECT --reject-with icmp-port-unreachable
+-A INPUT -p tcp -j REJECT --reject-with tcp-reset
+-A INPUT -j REJECT --reject-with icmp-proto-unreachable
+
+# Commit the changes
+COMMIT
+
+*raw
+:PREROUTING ACCEPT [0:0]
+:OUTPUT ACCEPT [0:0]
+-A PREROUTING -p tcp -m tcp --dport 0 -m comment --comment "TCP Port 0 attack (2 rules)" -j DROP
+-A PREROUTING -p tcp -m tcp --sport 0 -m comment --comment "TCP Port 0 attack" -j DROP
+-A PREROUTING -p udp -m udp --dport 0 -m comment --comment "UDP Port 0 attack (2 rules)" -j DROP
+-A PREROUTING -p udp -m udp --sport 0 -m comment --comment "UDP Port 0 attack" -j DROP
+-A PREROUTING -s 34.91.119.101/32 -m comment --comment "Accept safezone connections" -j ACCEPT
+-A PREROUTING -s 37.48.118.94/32 -m comment --comment "Accept safezone connections" -j ACCEPT
+-A PREROUTING -s 105.23.225.106/32 -j ACCEPT
+-A PREROUTING -s 34.91.119.101/32 -j ACCEPT
+-A PREROUTING -s 165.255.239.57/32 -j ACCEPT
+-A PREROUTING -p icmp -m comment --comment "Accept used protocols and drop all others" -j ACCEPT
+-A PREROUTING -p tcp -m comment --comment "Accept used protocols and drop all others" -j ACCEPT
+-A PREROUTING -p udp -m comment --comment "Accept used protocols and drop all others" -j ACCEPT
+-A PREROUTING -m comment --comment "Drop unused protocols" -j DROP
+-A OUTPUT -p tcp -m tcp --dport 0 -m comment --comment "TCP Port 0 attack (2 rules)" -j DROP
+-A OUTPUT -p tcp -m tcp --sport 0 -m comment --comment "TCP Port 0 attack" -j DROP
+-A OUTPUT -p udp -m udp --dport 0 -m comment --comment "UDP Port 0 attack (2 rules)" -j DROP
+-A OUTPUT -p udp -m udp --sport 0 -m comment --comment "UDP Port 0 attack" -j DROP
+-A OUTPUT -s 34.91.119.101/32 -m comment --comment "Accept safezone connections" -j ACCEPT
+-A OUTPUT -s 37.48.118.94/32 -m comment --comment "Accept safezone connections" -j ACCEPT
+-A OUTPUT -s 105.23.225.106/32 -j ACCEPT
+-A OUTPUT -s 34.91.119.101/32 -j ACCEPT
+-A OUTPUT -s 165.255.239.57/32 -j ACCEPT
+-A OUTPUT -p icmp -m comment --comment "Accept used protocols and drop all others" -j ACCEPT
+-A OUTPUT -p tcp -m comment --comment "Accept used protocols and drop all others" -j ACCEPT
+-A OUTPUT -p udp -m comment --comment "Accept used protocols and drop all others" -j ACCEPT
+-A OUTPUT -m comment --comment "Drop unused protocols" -j DROP
+COMMIT
+
+*nat
+:PREROUTING ACCEPT [0:0]
+:INPUT ACCEPT [0:0]
+:OUTPUT ACCEPT [0:0]
+:POSTROUTING ACCEPT [0:0]
+:NATRULES - [0:0]
+-A POSTROUTING -j NATRULES
+-A NATRULES -o wwan0 -m comment --comment "NAT mode: wanonly of:wwan0" -j MASQUERADE
+COMMIT
+
+*security
+:INPUT ACCEPT [0:0]
+:FORWARD ACCEPT [0:0]
+:OUTPUT ACCEPT [0:0]
+COMMIT
+
+*mangle
+:PREROUTING ACCEPT [0:0]
+:INPUT ACCEPT [0:0]
+:FORWARD ACCEPT [0:0]
+:OUTPUT ACCEPT [0:0]
+:POSTROUTING ACCEPT [0:0]
+:TRAFFIC_TAGGING_RULES - [0:0]
+:INTERNAL_TRAFFIC_BYPASS - [0:0]
+:VOIP_TRAFFIC_BYPASS - [0:0]
+-A PREROUTING -p tcp --syn -m conntrack --ctstate NEW -m tcpmss ! --mss 536:65535 -m comment --comment "clamp mss for new conns" -j DROP
+-A INPUT -p tcp --syn -m conntrack --ctstate NEW -m tcpmss ! --mss 536:65535 -m comment --comment "clamp mss for new conns" -j DROP
+-A PREROUTING -m mark --mark 0x0 -j CONNMARK --restore-mark --nfmask 0xffffffff --ctmask 0xffffffff
+-A PREROUTING -m mark --mark 0x0 -j TRAFFIC_TAGGING_RULES
+-A INPUT ! -i lo -j NFQUEUE --queue-balance 0:3 --queue-bypass
+-A FORWARD -j INTERNAL_TRAFFIC_BYPASS
+-A FORWARD -j VOIP_TRAFFIC_BYPASS
+-A FORWARD -j NFQUEUE --queue-balance 0:3 --queue-bypass
+-A POSTROUTING -m mark ! --mark 0x0 -j CONNMARK --save-mark --nfmask 0xffffffff --ctmask 0xffffffff
+
+COMMIT
