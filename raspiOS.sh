@@ -238,4 +238,4 @@ EOF
 	_controls_key ;
 	exit 0
 }
-_main
+_main ;
