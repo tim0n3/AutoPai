@@ -61,35 +61,5 @@ dpkg-reconfigure -f noninteractive keyboard-configuration
 rm -f /boot/firstrun.sh
 sed -i 's| systemd.run.*||g' /boot/cmdline.txt
 apt update -y
-echo -e "\nInstalling Modem Software apt packages\n"
-echo -e "\nSetting iptables-persistent prompts to auto-select yes\n"
-echo iptables-persistent iptables-persistent/autosave_v4 boolean true | sudo debconf-set-selections
-echo iptables-persistent iptables-persistent/autosave_v6 boolean true | sudo debconf-set-selections
-apt-cache --generate pkgnames \
-| grep --line-regexp --fixed-strings \
--e vim \
--e openjdk-17-jdk-headless \
--e libqmi-utils \
--e udhcpc \
--e htop \
--e git \
--e ufw \
--e screen \
--e curl \
--e wget \
--e p7zip-* \
--e neofetch \
--e conntrack \
--e mtr \
--e aptitude \
--e iptables* \
--e ipset \
--e netfilter-persistent \
--e nftables \
--e xtables-addons-common \
--e xtables-addons-source \
--e python3 \
--e python3-pip \
--e vnstat \
-| xargs apt install -y
+apt install -y vim neofetch udhcpc openjdk-17-jdk-headless htop git ufw screen curl wget conntrack mtr python3 python3-pip
 exit 0
