@@ -18,9 +18,9 @@ function _main() {
 
     function _run_setup() {
         if [[  $distribution =~ ^(Debian)$ ]]; then
-            echo "Your release ($codename) of $distribution is not supported."
+            echo "Your release ($codename) of $distribution is supported."
             touch /home/pi/AutoPai/stout-setup.log ;\
-            time sudo bash /home/pi/AutoPai/raspOS.sh  >> stout-setup.log 2>&1 
+            time sudo bash /home/pi/AutoPai/raspiOS.sh  >> stout-setup.log 2>&1 
             exit 0
         fi
     }
