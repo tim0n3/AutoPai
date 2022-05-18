@@ -60,6 +60,4 @@ KBEOF
 dpkg-reconfigure -f noninteractive keyboard-configuration
 rm -f /boot/firstrun.sh
 sed -i 's| systemd.run.*||g' /boot/cmdline.txt
-apt update -y
-apt install -y vim neofetch udhcpc openjdk-17-jdk-headless htop git ufw screen curl wget conntrack mtr python3 python3-pip
 exit 0

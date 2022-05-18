@@ -84,12 +84,10 @@ apt-cache --generate pkgnames \
 	-e conntrack \
 	-e mtr \
 	-e aptitude \
-	-e iptables* \
 	-e ipset \
 	-e netfilter-persistent \
 	-e nftables \
-	-e xtables-addons-common \
-	-e xtables-addons-source \
+	-e ipset \
 	-e python3 \
 	-e python3-pip \
 	-e vnstat \
@@ -114,13 +112,27 @@ udevadm trigger
 }
 _static_ip() {
 echo "configuring eth0 iface for Modbus TCP with ip 192.168.0.200\n"
+
 cat <<EOF >> /etc/dhcpcd.conf
-	# define static profile
-	interface eth0
-	static ip_address=192.168.0.200/24
+# It is possible to fall back to a static IP if DHCP fails:
+# define static profile
+profile static_eth0
+static ip_address=192.168.0.200/24
+
+# fallback to static profile on eth0
+interface eth0
+fallback static_eth0
+EOF
+}
+_crontabs() {
+	cp /home/pi/AutoPai/debug/inetmonit.sh /root/inetmonit
+	cat <<EOF | crontab -
+	@daily  /sbin/shutdown -r +5
+	*/10 * * * * /root/inetmonit
 EOF
 }
 _fetch_latest_software() {
+if [-d ! /home/pi/DataServices || /home/pi/DataServices-main]; then
 # Install github ssh=key and bypass check for cloning over ssh
 cp dotfiles/deployer /home/pi/.ssh/ ;
 mv /home/pi/.ssh/deployer /home/pi/.ssh/id_rsa ;
@@ -133,6 +145,7 @@ runuser -u pi git clone git@github.com:epicdev-za/DataServices.git ;
 cp -R DataServices /home/pi/ ;
 chown pi:pi -R /home/pi/DataServices ;
 runuser -u pi cp /home/pi/DataServices /home/pi/app ;
+fi
 }
 _modem_service_install() {
 echo "--------------------------------------"
