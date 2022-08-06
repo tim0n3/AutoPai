@@ -107,7 +107,7 @@ cat <<EOF >> /etc/udev/rules.d/99-com.rules
 	SUBSYSTEM=="tty", ATTRS{idVendor}=="1a86", ATTRS{idProduct}=="7523", SYMLINK+="ttyUSB.EDS"
 	SUBSYSTEM=="tty", ATTRS{idProduct}=="2303", ATTRS{idVendor}=="067b", SYMLINK+="ttyUSB.EDS"
 	SUBSYSTEM=="tty", ATTRS{idProduct}=="6001", ATTRS{idVendor}=="0403", SYMLINK+="ttyUSB.EDS"
-	SUBSYSTEM=="tty", ATTRS{idProduct}=="ea60", AATTRS{idVendor}=="10c4, SYMLINK+="ttyUSB.EDS"
+	SUBSYSTEM=="tty", ATTRS{idProduct}=="ea60", ATTRS{idVendor}=="10c4", SYMLINK+="ttyUSB.EDS"
 EOF
 udevadm trigger
 }
